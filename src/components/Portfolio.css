@@ -1,0 +1,410 @@
+/* Portfolio Page Styles */
+.portfolio {
+  min-height: 100vh;
+}
+
+/* Hero Section */
+.portfolio-hero {
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.9), rgba(184, 134, 11, 0.9)), 
+              url('./images/Home.jpg') center/cover;
+  height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  margin-top: 120px; /* Account for navbar height */
+}
+
+.portfolio-hero-content h1 {
+  font-family: 'Sacramento', cursive;
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.portfolio-hero-content p {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  max-width: 600px;
+  margin: 0 auto;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Filter Section */
+.portfolio-filters {
+  padding: 4rem 0 2rem;
+  background: #f8f9fa;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.portfolio-filters h2 {
+  font-family: 'Dancing Script', cursive;
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #333;
+  background: linear-gradient(135deg, #ff4757, #ff6b7a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.filter-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.filter-btn {
+  background: white;
+  border: 2px solid #ff6b7a;
+  color: #ff6b7a;
+  padding: 0.8rem 1.5rem;
+  border-radius: 25px;
+  font-family: 'Playfair Display', serif;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: capitalize;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+  background: linear-gradient(135deg, #ff4757, #ff6b7a);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 71, 87, 0.3);
+}
+
+/* Portfolio Gallery */
+.portfolio-gallery {
+  padding: 3rem 0 5rem;
+  background: white;
+}
+
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-auto-rows: 200px;
+  gap: 1.5rem;
+  margin-top: 2rem;
+  transition: all 0.5s ease;
+}
+
+.portfolio-card {
+  position: relative;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  background: white;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Gallery Pattern - Varied Heights */
+.portfolio-card.card-1 {
+  grid-row: span 2;
+}
+
+.portfolio-card.card-2 {
+  grid-row: span 1;
+}
+
+.portfolio-card.card-3 {
+  grid-row: span 2;
+}
+
+.portfolio-card.card-4 {
+  grid-row: span 1;
+}
+
+.portfolio-card.card-5 {
+  grid-row: span 3;
+}
+
+.portfolio-card.card-6 {
+  grid-row: span 1;
+}
+
+.portfolio-card.card-7 {
+  grid-row: span 2;
+}
+
+.portfolio-card.card-8 {
+  grid-row: span 1;
+}
+
+.portfolio-card.card-9 {
+  grid-row: span 2;
+}
+
+.portfolio-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+}
+
+.portfolio-image {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+}
+
+.portfolio-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.portfolio-card:hover .portfolio-image img {
+  transform: scale(1.1);
+}
+
+.portfolio-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 0, 0, 0.2) 30%,
+    rgba(0, 0, 0, 0.8) 100%
+  );
+  display: flex;
+  align-items: flex-end;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  color: white;
+  padding: 1.5rem;
+}
+
+.portfolio-card:hover .portfolio-overlay {
+  opacity: 1;
+}
+
+.portfolio-details {
+  width: 100%;
+}
+
+.portfolio-category {
+  display: inline-block;
+  background: rgba(212, 175, 55, 0.9);
+  color: white;
+  padding: 0.3rem 0.8rem;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
+  margin-bottom: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.portfolio-details h3 {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.4rem;
+  margin-bottom: 0.3rem;
+  color: #ff6b7a;
+}
+
+.portfolio-location {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
+  opacity: 0.9;
+}
+
+.portfolio-description {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.8rem;
+  line-height: 1.3;
+  margin-bottom: 0.8rem;
+  opacity: 0.8;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.portfolio-date {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.7rem;
+  opacity: 0.7;
+  font-style: italic;
+}
+
+/* CTA Section */
+.portfolio-cta {
+  background: linear-gradient(135deg, #f8f9fa 0%, #fff 100%);
+  padding: 4rem 0;
+  text-align: center;
+}
+
+.cta-content h2 {
+  font-family: 'Sacramento', cursive;
+  font-size: 3rem;
+  color: #333;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, #ff4757, #ff6b7a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.cta-content p {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+.cta-button {
+  background: linear-gradient(135deg, #ff4757, #ff6b7a);
+  color: white;
+  border: none;
+  padding: 1.2rem 3rem;
+  font-size: 1.1rem;
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+}
+
+.cta-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .portfolio-hero {
+    height: 50vh;
+    margin-top: 100px;
+  }
+  
+  .portfolio-hero-content h1 {
+    font-size: 3rem;
+  }
+  
+  .portfolio-hero-content p {
+    font-size: 1.1rem;
+  }
+  
+  .portfolio-filters h2 {
+    font-size: 2rem;
+  }
+  
+  .filter-buttons {
+    gap: 0.5rem;
+  }
+  
+  .filter-btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
+  
+  .portfolio-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-auto-rows: 180px;
+    gap: 1rem;
+  }
+  
+  /* Reset gallery pattern for mobile */
+  .portfolio-card.card-1,
+  .portfolio-card.card-2,
+  .portfolio-card.card-3,
+  .portfolio-card.card-4,
+  .portfolio-card.card-5,
+  .portfolio-card.card-6,
+  .portfolio-card.card-7,
+  .portfolio-card.card-8,
+  .portfolio-card.card-9 {
+    grid-row: span 1;
+  }
+  
+  .portfolio-card.card-1,
+  .portfolio-card.card-4,
+  .portfolio-card.card-7 {
+    grid-row: span 2;
+  }
+  
+  .portfolio-overlay {
+    padding: 1rem;
+  }
+  
+  .portfolio-details h3 {
+    font-size: 1.2rem;
+  }
+  
+  .portfolio-description {
+    font-size: 0.7rem;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+  }
+  
+  .cta-content h2 {
+    font-size: 2.5rem;
+  }
+  
+  .cta-content p {
+    font-size: 1rem;
+  }
+  
+  .cta-button {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 1rem;
+  }
+  
+  .portfolio-hero-content h1 {
+    font-size: 2.5rem;
+  }
+  
+  .portfolio-filters {
+    padding: 3rem 0 1.5rem;
+  }
+  
+  .filter-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
+  
+  .portfolio-details h3 {
+    font-size: 1.3rem;
+  }
+  
+  .portfolio-description {
+    font-size: 0.8rem;
+  }
+}
