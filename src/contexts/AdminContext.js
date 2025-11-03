@@ -38,10 +38,7 @@ export const AdminProvider = ({ children }) => {
       }
     },
     portfolioImages: [
-      '/images/portfolio/romantic-dinner-1.jpg',
-      '/images/portfolio/proposal-1.jpg',
-      '/images/portfolio/yacht-dinner-1.jpg',
-      '/images/portfolio/couple-spa-1.jpg'
+      // No placeholder images - admin can add real images via URLs or upload
     ]
   });
 
