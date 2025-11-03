@@ -16,7 +16,7 @@ const RomanticDinners = () => {
   const { getPrice } = usePricing();
 
   const handleBookNow = () => {
-    navigate('/contact');
+    navigate('/booking?service=Romantic Dinners');
     window.scrollTo(0, 0);
   };
 
@@ -69,7 +69,7 @@ const RomanticDinners = () => {
           <div className="service-hero-content">
             <h1>Romantic Dinners</h1>
             <p>Candle-lit moments, beachfront tables, rooftop ambience</p>
-            <div className="service-hero-price">
+            <div className="service-hero-price" onClick={handleBookNow} style={{cursor: 'pointer'}}>
               Starting From: ₹{getPrice('romanticDinners')}
               <br />
               <span style={{fontSize: '1.1rem', fontWeight: '600'}}>Book Now</span>
@@ -90,14 +90,14 @@ const RomanticDinners = () => {
             </p>
 
             <div className="service-features">
-              <h3>What's Included:</h3>
+              <h3>Customize Your Experience With:</h3>
               <ul>
                 <li>🕯️ Candlelit table setup with premium linens</li>
                 <li>🌹 Fresh flower arrangements and rose petals</li>
                 <li>🎵 Ambient lighting and romantic music</li>
                 <li>🍽️ Gourmet multi-course meals</li>
                 <li>🥂 Welcome drinks and champagne toast</li>
-                <li>📸 Professional photography (optional)</li>
+                <li>📸 Professional photography (paid service, arranged separately)</li>
                 <li>🌊 Beachfront or rooftop venue options</li>
                 <li>👨‍🍳 Personal chef and dedicated service staff</li>
               </ul>

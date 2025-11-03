@@ -16,7 +16,7 @@ const YachtDinner = () => {
   const { getPrice } = usePricing();
 
   const handleBookNow = () => {
-    navigate('/contact');
+    navigate('/booking?service=Yacht Dinners');
     window.scrollTo(0, 0);
   };
 
@@ -69,7 +69,7 @@ const YachtDinner = () => {
           <div className="service-hero-content">
             <h1>Yacht Dinner</h1>
             <p>Cruise along the coastline, dine under the stars</p>
-            <div className="service-hero-price">
+            <div className="service-hero-price" onClick={handleBookNow} style={{cursor: 'pointer'}}>
               Starting From: ₹{getPrice('yachtDinner')}
               <br />
               <span style={{fontSize: '1.1rem', fontWeight: '600'}}>Book Now</span>
@@ -91,7 +91,7 @@ const YachtDinner = () => {
             </p>
 
             <div className="service-features">
-              <h3>What's Included:</h3>
+              <h3>Customize Your Experience With:</h3>
               <ul>
                 <li>🛥️ Private luxury yacht charter (4-6 hours)</li>
                 <li>👨‍✈️ Professional captain and crew service</li>
@@ -100,7 +100,7 @@ const YachtDinner = () => {
                 <li>🌅 Sunset cruise with panoramic ocean views</li>
                 <li>✨ Romantic deck decoration with lights</li>
                 <li>🎵 Premium sound system for ambient music</li>
-                <li>📸 Professional photography session (optional)</li>
+                <li>📸 Professional photography session (paid service, arranged separately)</li>
               </ul>
             </div>
 

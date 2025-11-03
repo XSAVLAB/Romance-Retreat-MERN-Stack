@@ -5,6 +5,7 @@ import homeImage from './images/Home.jpg';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import { usePricing } from '../contexts/PricingContext';
+import { useAdmin } from '../contexts/AdminContext';
 
 // Import service images for preview
 import customizedMomentsImg from './images/Services/Customized_Moments.jpg';
@@ -18,6 +19,7 @@ import yachtDinnerImg from './images/Services/Yatch_Dinner.jpg';
 const Home = () => {
   const navigate = useNavigate();
   const { getPrice } = usePricing();
+  const { adminData } = useAdmin();
 
   const handleLearnMoreClick = () => {
     navigate('/about');
@@ -51,9 +53,9 @@ const Home = () => {
       <div className="hero-background" id="home" style={{backgroundImage: `url(${homeImage})`}}>
         <div className="hero-overlay">
           <div className="hero-content">
-            <h1>Welcome to Romance Retreat</h1>
+            <h1>{adminData.bannerTexts.heroTitle}</h1>
             <p className="hero-subtitle">
-              Discover the perfect romantic getaway for you and your loved one
+              {adminData.bannerTexts.heroSubtitle}
             </p>
             <button className="cta-button" onClick={handleExploreRetreatsClick}>Explore Retreats</button>
           </div>

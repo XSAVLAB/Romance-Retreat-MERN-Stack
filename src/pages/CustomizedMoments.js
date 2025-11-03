@@ -16,7 +16,7 @@ const CustomizedMoments = () => {
   const { getPrice } = usePricing();
 
   const handleBookNow = () => {
-    navigate('/contact');
+    navigate('/booking?service=Customized Moments');
     window.scrollTo(0, 0);
   };
 
@@ -69,7 +69,7 @@ const CustomizedMoments = () => {
           <div className="service-hero-content">
             <h1>Customised Romance Moments</h1>
             <p>Tell us your dream, and we'll craft a bespoke experience that's uniquely yours</p>
-            <div className="service-hero-price">
+            <div className="service-hero-price" onClick={handleBookNow} style={{cursor: 'pointer'}}>
               Starting From: ₹{getPrice('customizedMoments')}
               <br />
               <span style={{fontSize: '1.1rem', fontWeight: '600'}}>Book Now</span>
@@ -91,13 +91,13 @@ const CustomizedMoments = () => {
             </p>
 
             <div className="service-features">
-              <h3>Customized Experience Includes:</h3>
+              <h3>Customize Your Experience With:</h3>
               <ul>
                 <li>💭 One-on-one consultation to understand your vision</li>
                 <li>🎨 Complete creative design based on your preferences</li>
                 <li>📋 Detailed planning and coordination of all elements</li>
                 <li>🌟 Unique touches that reflect your relationship story</li>
-                <li>📸 Professional photography to capture your special moments</li>
+                <li>📸 Professional photography to capture your special moments (paid service, arranged separately)</li>
                 <li>🎁 Personalized gifts and keepsakes designed for you</li>
                 <li>🕰️ Flexible timing and duration based on your needs</li>
                 <li>💫 Surprise elements and magical moments throughout</li>

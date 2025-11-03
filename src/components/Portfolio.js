@@ -1,4 +1,6 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAdmin } from '../contexts/AdminContext';
 import './Portfolio.css';
 import Navbar from './Navbar';
 import Footer from './Footer';
@@ -15,6 +17,17 @@ import customizedMomentsImg from './images/Services/Customized_Moments.jpg';
 import dinnerDateImg from './images/Services/Dinner_Date.png';
 
 const Portfolio = () => {
+  const { adminData } = useAdmin();
+  const navigate = useNavigate();
+  
+  // Debug: Check what admin data we're getting (remove in production)
+  // console.log('Portfolio component - adminData:', adminData);
+  // console.log('Portfolio component - portfolioImages:', adminData.portfolioImages);
+
+  const handleBookingClick = () => {
+    navigate('/booking');
+  };
+  
   const portfolioItems = [
     {
       id: 1,
@@ -99,13 +112,44 @@ const Portfolio = () => {
     }
   ];
 
-  const categories = ["All", "Romantic Dinners", "Wedding Proposals", "Anniversary Celebrations", "Valentine's Dinners", "Yacht Dinners", "Spa & Wellness", "Special Occasions", "Unique Experiences", "Dinner Experiences"];
+  const categories = ["All", "Romantic Dinners", "Wedding Proposals", "Anniversary Celebrations", "Valentine's Dinners", "Yacht Dinners", "Spa & Wellness", "Special Occasions", "Unique Experiences", "Dinner Experiences", "Custom Gallery"];
 
   const [selectedCategory, setSelectedCategory] = React.useState("All");
 
+  // Combine static portfolio items with admin-uploaded images
+  // Sort admin images by timestamp (most recent first) and handle both old and new formats
+  const adminUploadedItems = adminData.portfolioImages
+    .map((item, originalIndex) => {
+      // Handle both old format (string URLs) and new format (objects with timestamps)
+      if (typeof item === 'string') {
+        return {
+          url: item,
+          timestamp: 0, // Old images get timestamp 0
+          id: `legacy-${originalIndex}`,
+          originalIndex
+        };
+      }
+      return { ...item, originalIndex };
+    })
+    .sort((a, b) => b.timestamp - a.timestamp) // Sort by timestamp, most recent first
+    .map((item, index) => ({
+      id: item.id || `admin-${index}`,
+      title: `Portfolio Image ${index + 1}`,
+      category: "Custom Gallery",
+      location: "Goa",
+      description: "Beautiful moments captured by Romance Retreat",
+      image: item.url,
+      date: item.timestamp > 0 ? new Date(item.timestamp).toLocaleDateString() : "Recent",
+      uploadOrder: adminData.portfolioImages.length - index,
+      timestamp: item.timestamp
+    }));
+
+  // Put recently uploaded images first, then static portfolio items
+  const allPortfolioItems = [...adminUploadedItems, ...portfolioItems];
+
   const filteredItems = selectedCategory === "All" 
-    ? portfolioItems 
-    : portfolioItems.filter(item => item.category === selectedCategory);
+    ? allPortfolioItems 
+    : allPortfolioItems.filter(item => item.category === selectedCategory);
 
   return (
     <div className="portfolio">
@@ -144,7 +188,16 @@ const Portfolio = () => {
             {filteredItems.map((item, index) => (
               <div key={item.id} className={`portfolio-card card-${(index % 9) + 1}`}>
                 <div className="portfolio-image">
-                  <img src={item.image} alt={item.title} />
+                  <img 
+                    src={item.image} 
+                    alt={item.title}
+                    onError={(e) => {
+                      // Fallback for broken images
+                      e.target.src = '/images/placeholder.jpg';
+                      e.target.alt = 'Image not available';
+                    }}
+                    loading="lazy"
+                  />
                   <div className="portfolio-overlay">
                     <div className="portfolio-details">
                       <span className="portfolio-category">{item.category}</span>
@@ -167,7 +220,9 @@ const Portfolio = () => {
           <div className="cta-content">
             <h2>Ready to Create Your Own Story?</h2>
             <p>Let us design a magical experience that's uniquely yours</p>
-            <button className="cta-button">Book Your Romantic Experience</button>
+            <button className="cta-button" onClick={handleBookingClick}>
+              Book Your Romantic Experience
+            </button>
           </div>
         </div>
       </section>

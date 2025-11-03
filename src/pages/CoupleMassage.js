@@ -16,7 +16,7 @@ const CoupleMassage = () => {
   const { getPrice } = usePricing();
 
   const handleBookNow = () => {
-    navigate('/contact');
+    navigate('/booking?service=Couple Massage & Spa');
     window.scrollTo(0, 0);
   };
 
@@ -69,7 +69,7 @@ const CoupleMassage = () => {
           <div className="service-hero-content">
             <h1>Couple Massage & Spa Rituals</h1>
             <p>Reconnect, relax, rejuvenate — side by side</p>
-            <div className="service-hero-price">
+            <div className="service-hero-price" onClick={handleBookNow} style={{cursor: 'pointer'}}>
               Starting From: ₹{getPrice('coupleMassage')}
               <br />
               <span style={{fontSize: '1.1rem', fontWeight: '600'}}>Book Now</span>
@@ -91,7 +91,7 @@ const CoupleMassage = () => {
             </p>
 
             <div className="service-features">
-              <h3>What's Included:</h3>
+              <h3>Customize Your Experience With:</h3>
               <ul>
                 <li>💆‍♀️ 90-minute couple's massage session</li>
                 <li>🛁 Private spa suite with relaxation area</li>

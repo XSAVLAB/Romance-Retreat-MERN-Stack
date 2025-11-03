@@ -27,14 +27,22 @@ const Services = () => {
   return (
     <div className="services">
       <Navbar />
-      <div className="services-container">
-        <header className="services-header">
+      
+      {/* Hero Section */}
+      <section className="services-hero">
+        <div className="services-hero-content">
           <h1>Our Services</h1>
-          <p className="services-intro">
+          <p>Discover our curated collection of romantic experiences designed to create magical moments and lasting memories for couples in love.</p>
+        </div>
+      </section>
+      
+      <div className="services-container">
+        <section className="services-intro">
+          <p className="services-description">
             At Romance Retreat, we offer a suite of bespoke experiences tailored to you and your partner. 
             Each service is crafted with love and attention to detail to create unforgettable moments.
           </p>
-        </header>
+        </section>
 
         <section className="services-content">
           <div className="services-grid">
@@ -180,7 +188,7 @@ const Services = () => {
           <p>
             Whatever your occasion — big or small — let us take care of the details so you can focus on each other.
           </p>
-          <button className="contact-cta" onClick={() => handleServiceClick('/contact')}>Book Your Experience</button>
+          <button className="contact-cta" onClick={() => handleServiceClick('/booking')}>Book Your Experience</button>
         </section>
       </div>
       <Footer />

@@ -6,9 +6,11 @@ import Services from './components/Services';
 import Reviews from './components/Reviews';
 import Portfolio from './components/Portfolio';
 import Contact from './components/Contact';
-import Admin from './components/Admin';
+import BookingPage from './pages/BookingPage';
 import ScrollToTop from './components/ScrollToTop';
 import { PricingProvider } from './contexts/PricingContext';
+import { AdminProvider } from './contexts/AdminContext';
+import AdminDashboard from './components/admin/AdminDashboard';
 
 // Import service pages
 import { 
@@ -25,8 +27,9 @@ import {
 
 function App() {
   return (
-    <PricingProvider>
-      <Router>
+    <AdminProvider>
+      <PricingProvider>
+        <Router>
         <ScrollToTop />
         <div className="App">
           <Routes>
@@ -36,7 +39,7 @@ function App() {
             <Route path="/reviews" element={<Reviews />} />
             <Route path="/portfolio" element={<Portfolio />} />
             <Route path="/contact" element={<Contact />} />
-            <Route path="/admin" element={<Admin />} />
+            <Route path="/booking" element={<BookingPage />} />
             
             {/* Service Pages Routes */}
             <Route path="/services/romantic-dinners" element={<RomanticDinners />} />
@@ -48,10 +51,12 @@ function App() {
             <Route path="/services/birthday-celebrations" element={<BirthdayCelebrations />} />
             <Route path="/services/dinner-date-experiences" element={<DinnerDateExperiences />} />
             <Route path="/services/customized-moments" element={<CustomizedMoments />} />
+            <Route path="/admin" element={<AdminDashboard />} />
           </Routes>
         </div>
       </Router>
     </PricingProvider>
+  </AdminProvider>
   );
 }
 

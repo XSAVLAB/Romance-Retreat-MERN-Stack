@@ -16,7 +16,7 @@ const BirthdayCelebrations = () => {
   const { getPrice } = usePricing();
 
   const handleBookNow = () => {
-    navigate('/contact');
+    navigate('/booking?service=Birthday Celebrations');
     window.scrollTo(0, 0);
   };
 
@@ -69,7 +69,7 @@ const BirthdayCelebrations = () => {
           <div className="service-hero-content">
             <h1>Birthday Celebrations</h1>
             <p>Romantic birthday surprises, partner-focused celebrations</p>
-            <div className="service-hero-price">
+            <div className="service-hero-price" onClick={handleBookNow} style={{cursor: 'pointer'}}>
               Starting From: ₹{getPrice('birthdayCelebrations')}
               <br />
               <span style={{fontSize: '1.1rem', fontWeight: '600'}}>Book Now</span>
@@ -92,7 +92,7 @@ const BirthdayCelebrations = () => {
             </p>
 
             <div className="service-features">
-              <h3>Romantic Birthday Package Includes:</h3>
+              <h3>Customize Your Experience With:</h3>
               <ul>
                 <li>🎂 Custom romantic birthday cake and sweet treats</li>
                 <li>🎈 Elegant birthday decorations with romantic touches</li>

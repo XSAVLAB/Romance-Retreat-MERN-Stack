@@ -16,7 +16,7 @@ const ValentinesDinners = () => {
   const { getPrice } = usePricing();
 
   const handleBookNow = () => {
-    navigate('/contact');
+    navigate('/booking?service=Valentine\'s Dinners');
     window.scrollTo(0, 0);
   };
 
@@ -69,7 +69,7 @@ const ValentinesDinners = () => {
           <div className="service-hero-content">
             <h1>Valentine's Dinners</h1>
             <p>Seasonal specials, curated menus, love-filled décor</p>
-            <div className="service-hero-price">
+            <div className="service-hero-price" onClick={handleBookNow} style={{cursor: 'pointer'}}>
               Starting From: ₹{getPrice('valentinesDinners')}
               <br />
               <span style={{fontSize: '1.1rem', fontWeight: '600'}}>Book Now</span>
@@ -91,7 +91,7 @@ const ValentinesDinners = () => {
             </p>
 
             <div className="service-features">
-              <h3>Valentine's Special Includes:</h3>
+              <h3>Customize Your Experience With:</h3>
               <ul>
                 <li>💕 Heart-themed romantic decorations</li>
                 <li>🌹 Fresh red roses and romantic flower arrangements</li>
@@ -100,7 +100,7 @@ const ValentinesDinners = () => {
                 <li>🥂 Champagne toast and valentine's cocktails</li>
                 <li>🎵 Live romantic music or acoustic performances</li>
                 <li>💌 Personalized love notes and surprise elements</li>
-                <li>📸 Complimentary couple's photography session</li>
+                <li>📸 Couple's photography session (paid service, arranged separately)</li>
               </ul>
             </div>
 

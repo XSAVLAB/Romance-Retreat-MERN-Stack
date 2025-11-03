@@ -531,11 +531,11 @@ html {
 .service-preview-content .service-price {
   background: linear-gradient(135deg, #ff4757, #ff6b7a);
   color: white;
-  padding: 0.7rem 1rem;
-  border-radius: 20px;
+  padding: 0.8rem 1.2rem;
+  border-radius: 25px;
   text-align: center;
   font-weight: 700;
-  font-size: 0.9rem;
+  font-size: 1rem;
   letter-spacing: 0.5px;
   box-shadow: 0 4px 15px rgba(255, 71, 87, 0.3);
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
@@ -547,6 +547,7 @@ html {
   left: 1.8rem;
   right: 1.8rem;
   margin: 0; /* Remove margin */
+  white-space: nowrap; /* Prevent text wrapping */
 }
 
 .service-preview-card:hover .service-price {
@@ -777,21 +778,35 @@ html {
   }
   
   .service-preview-card {
-    height: 450px;
+    height: 480px; /* Increased height for mobile to accommodate spacing */
   }
   
   .service-preview-content {
     padding: 1.2rem 1.8rem 1.8rem;
   }
   
+  .service-preview-text-content {
+    padding-bottom: 6rem; /* Significantly increased spacing for mobile */
+  }
+  
   .service-preview-content h3 {
     font-size: 1.6rem;
   }
-  
+}
+
+@media (max-width: 768px) {
   .service-preview-content p {
     font-size: 0.9rem;
+    line-height: 1.4; /* Tighter line height to save space */
   }
   
+  .service-preview-content .service-price {
+    font-size: 0.85rem; /* Smaller font size for mobile */
+    padding: 0.7rem 1rem; /* Reduced padding for mobile */
+    left: 1.5rem; /* Adjusted margins for smaller screens */
+    right: 1.5rem;
+  }
+
   /* Reviews responsive */
   .reviews-preview-header h1 {
     font-size: 2.8rem;
@@ -837,6 +852,21 @@ html {
     font-size: 1.4rem;
   }
   
+  .service-preview-card {
+    height: 500px; /* Further increased height for very small screens */
+  }
+  
+  .service-preview-text-content {
+    padding-bottom: 6.5rem; /* Even more spacing for very small screens */
+  }
+  
+  .service-preview-content .service-price {
+    font-size: 0.8rem; /* Even smaller font for very small screens */
+    padding: 0.6rem 0.8rem; /* More compact padding */
+    left: 1.2rem; /* Tighter margins */
+    right: 1.2rem;
+  }
+
   /* Reviews mobile */
   .reviews-preview-header h1 {
     font-size: 2.2rem;

@@ -4,36 +4,59 @@
   background: linear-gradient(135deg, #f8f9fa 0%, #fff 100%);
 }
 
+/* Hero Section */
+.about-hero {
+  background: url('./images/Home.jpg') center/cover;
+  height: 70vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  margin-top: 120px; /* Account for navbar height */
+}
+
+.about-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.4) 100%);
+  z-index: 1;
+}
+
+.about-hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  padding: 0 2rem;
+}
+
+.about-hero-content h1 {
+  font-family: 'Sacramento', cursive;
+  font-size: 4rem;
+  font-weight: 400;
+  margin-bottom: 1.5rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.about-hero-content p {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
 .about-container {
   max-width: 1000px;
   margin: 0 auto;
-  padding: 180px 2rem 4rem;
+  padding: 4rem 2rem;
   line-height: 1.7;
-}
-
-.about-header {
-  text-align: center;
-  margin-bottom: 4rem;
-  padding: 2rem 0;
-}
-
-.about-header h1 {
-  font-size: 2.8rem;
-  color: #333;
-  margin-bottom: 2rem;
-  background: linear-gradient(135deg, #ff4757, #ff6b7a);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  font-weight: bold;
-}
-
-.about-intro {
-  font-size: 1.2rem;
-  color: #555;
-  max-width: 800px;
-  margin: 0 auto;
-  font-style: italic;
 }
 
 .about-section {
@@ -155,6 +178,9 @@
   font-weight: bold;
   margin: 2rem 0 2.5rem !important;
   color: white !important;
+  text-align: center !important;
+  display: block;
+  width: 100%;
 }
 
 .contact-cta {
@@ -178,10 +204,32 @@
 }
 
 @media (max-width: 768px) {
+  .about-hero {
+    height: 50vh;
+    margin-top: 100px;
+  }
+  
+  .about-hero-content h1 {
+    font-size: 3rem;
+  }
+  
+  .about-hero-content p {
+    font-size: 1.1rem;
+  }
+  
   .about-container {
-    padding: 80px 1rem 2rem;
+    padding: 3rem 1rem 2rem;
   }
 
+@media (max-width: 480px) {
+  .about-hero-content h1 {
+    font-size: 2.5rem;
+  }
+  
+  .about-hero-content p {
+    font-size: 1rem;
+  }
+}
   .about-header h1 {
     font-size: 2.2rem;
   }

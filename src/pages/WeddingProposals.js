@@ -16,7 +16,7 @@ const WeddingProposals = () => {
   const { getPrice } = usePricing();
 
   const handleBookNow = () => {
-    navigate('/contact');
+    navigate('/booking?service=Wedding Proposals');
     window.scrollTo(0, 0);
   };
 
@@ -69,7 +69,7 @@ const WeddingProposals = () => {
           <div className="service-hero-content">
             <h1>Wedding Proposals</h1>
             <p>Thoughtfully designed settings, surprise moments, professional coordination</p>
-            <div className="service-hero-price">
+            <div className="service-hero-price" onClick={handleBookNow} style={{cursor: 'pointer'}}>
               Starting From: ₹{getPrice('weddingProposals')}
               <br />
               <span style={{fontSize: '1.1rem', fontWeight: '600'}}>Book Now</span>
@@ -91,7 +91,7 @@ const WeddingProposals = () => {
             </p>
 
             <div className="service-features">
-              <h3>What's Included:</h3>
+              <h3>Customize Your Experience With:</h3>
               <ul>
                 <li>💍 Custom proposal setup and decoration</li>
                 <li>🌹 Rose petal pathways and romantic arrangements</li>

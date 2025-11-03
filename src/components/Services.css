@@ -4,32 +4,68 @@
   background: linear-gradient(135deg, #f8f9fa 0%, #fff 100%);
 }
 
+/* Hero Section */
+.services-hero {
+  background: url('./images/Home.jpg') center/cover;
+  height: 70vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  margin-top: 120px; /* Account for navbar height */
+}
+
+.services-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.4) 100%);
+  z-index: 1;
+}
+
+.services-hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  padding: 0 2rem;
+}
+
+.services-hero-content h1 {
+  font-family: 'Sacramento', cursive;
+  font-size: 4rem;
+  font-weight: 400;
+  margin-bottom: 1.5rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.services-hero-content p {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
 .services-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 180px 2rem 4rem;
+  padding: 4rem 2rem;
   line-height: 1.7;
 }
 
-.services-header {
+.services-intro {
   text-align: center;
   margin-bottom: 4rem;
   padding: 2rem 0;
 }
 
-.services-header h1 {
-  font-family: 'Sacramento', cursive;
-  font-size: 3.5rem;
-  color: #333;
-  margin-bottom: 2rem;
-  background: linear-gradient(135deg, #ff4757, #ff6b7a);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  font-weight: 400;
-}
-
-.services-intro {
+.services-description {
   font-family: 'Playfair Display', serif;
   font-size: 1.2rem;
   color: #555;
@@ -207,10 +243,11 @@
   transition: all 0.3s ease;
   flex-shrink: 0; /* Prevent shrinking */
   position: absolute;
-  bottom: 1.5rem; /* Fixed distance from bottom */
+  bottom: 1.5rem; /* Fixed at exactly 1.5rem from bottom */
   left: 1.8rem;
   right: 1.8rem;
   margin: 0; /* Remove margin */
+  z-index: 10; /* Ensure button stays on top */
 }
 
 .service-card:hover .service-price {
@@ -268,12 +305,21 @@
 }
 
 @media (max-width: 768px) {
-  .services-container {
-    padding: 100px 1rem 2rem;
+  .services-hero {
+    height: 50vh;
+    margin-top: 100px;
   }
-
-  .services-header h1 {
-    font-size: 2.5rem;
+  
+  .services-hero-content h1 {
+    font-size: 3rem;
+  }
+  
+  .services-hero-content p {
+    font-size: 1.1rem;
+  }
+  
+  .services-container {
+    padding: 3rem 1rem 2rem;
   }
 
   .services-grid {
@@ -282,7 +328,34 @@
   }
 
   .service-card {
-    padding: 2rem 1.5rem;
+    height: 520px; /* Fixed height for uniform appearance on mobile */
+    position: relative; /* Ensure positioning context for absolute buttons */
+    padding: 0; /* Remove padding to ensure consistent button positioning */
+  }
+
+  .service-content {
+    height: 45%; /* Fixed height percentage to match desktop */
+    padding: 1.2rem 1.5rem 4rem 1.5rem; /* Added bottom padding for fixed button */
+  }
+
+  .service-text-content {
+    padding-bottom: 5rem; /* Ensure text doesn't overlap with button */
+  }
+
+  .service-price {
+    font-size: 0.85rem; /* Smaller font size for mobile */
+    padding: 0.7rem 1rem; /* Reduced padding for mobile */
+    white-space: nowrap; /* Prevent text wrapping */
+    overflow: hidden; /* Hide overflow if text is too long */
+    text-overflow: ellipsis; /* Add ellipsis if text is cut off */
+    left: 1.5rem; /* Adjusted margins for smaller screens */
+    right: 1.5rem;
+    /* Maintain fixed positioning like desktop */
+    position: absolute;
+    bottom: 1.5rem; /* Fixed at exactly 1.5rem from bottom */
+    flex-shrink: 0; /* Prevent shrinking */
+    margin: 0; /* Remove margin */
+    z-index: 10; /* Ensure button stays on top */
   }
 
   .service-icon {
@@ -296,5 +369,39 @@
 
   .cta-section h2 {
     font-size: 2rem;
+  }
+}
+
+/* Extra small mobile devices */
+@media (max-width: 480px) {
+  .services-hero-content h1 {
+    font-size: 2.5rem;
+  }
+  
+  .service-card {
+    height: 540px; /* Slightly increased height for very small screens */
+    position: relative; /* Ensure positioning context for absolute buttons */
+    padding: 0; /* Remove padding to ensure consistent button positioning */
+  }
+  
+  .service-content {
+    height: 45%; /* Fixed height percentage to match desktop */
+  }
+  
+  .service-text-content {
+    padding-bottom: 5.5rem; /* Extra spacing for very small screens */
+  }
+  
+  .service-price {
+    font-size: 0.8rem; /* Even smaller font for very small screens */
+    padding: 0.6rem 0.8rem; /* More compact padding */
+    left: 1.2rem; /* Tighter margins */
+    right: 1.2rem;
+    /* Maintain fixed positioning like desktop */
+    position: absolute;
+    bottom: 1.5rem; /* Fixed at exactly 1.5rem from bottom */
+    flex-shrink: 0; /* Prevent shrinking */
+    margin: 0; /* Remove margin */
+    z-index: 10; /* Ensure button stays on top */
   }
 }

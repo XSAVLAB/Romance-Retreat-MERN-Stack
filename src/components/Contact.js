@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useContactInfo } from '../hooks/useContactInfo';
 import './Contact.css';
 import Navbar from './Navbar';
 import Footer from './Footer';
 
 const Contact = () => {
+  const contactInfo = useContactInfo();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -30,10 +32,55 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate form submission
-    setTimeout(() => {
-      setSubmitMessage('Thank you for your inquiry! We\'ll get back to you within 24 hours.');
+    // Validate required fields
+    const requiredFields = ['name', 'email', 'phone', 'eventType', 'message'];
+    const missingFields = requiredFields.filter(field => !formData[field]);
+    
+    if (missingFields.length > 0) {
+      setSubmitMessage('Please fill in all required fields.');
       setIsSubmitting(false);
+      return;
+    }
+
+    try {
+      // Format the WhatsApp message
+      const formatDate = (date) => {
+        if (!date) return 'Not specified';
+        const [year, month, day] = date.split('-');
+        return `${day}-${month}-${year}`;
+      };
+
+      const whatsappMessage = `
+🌹 *New Contact Form Inquiry* 🌹
+
+👤 *Customer Details:*
+Name: ${formData.name}
+Email: ${formData.email}
+Phone: ${formData.phone}
+
+💝 *Event Details:*
+Event Type: ${formData.eventType}
+Preferred Date: ${formatDate(formData.eventDate)}
+Number of Guests: ${formData.guestCount || 'Not specified'}
+Budget Range: ${formData.budget || 'Not specified'}
+
+💭 *Customer's Vision:*
+${formData.message}
+
+---
+*Received via Contact Form*
+      `.trim();
+
+      const adminWhatsAppNumber = contactInfo.whatsapp.replace(/[^0-9]/g, '');
+      const encodedMessage = encodeURIComponent(whatsappMessage);
+      const whatsappURL = `https://wa.me/${adminWhatsAppNumber}?text=${encodedMessage}`;
+      
+      // Open WhatsApp in a new window
+      window.open(whatsappURL, '_blank');
+      
+      setSubmitMessage('Thank you for your inquiry! Your message has been sent via WhatsApp. We\'ll get back to you within 24 hours.');
+      
+      // Reset form
       setFormData({
         name: '',
         email: '',
@@ -44,7 +91,13 @@ const Contact = () => {
         budget: '',
         message: ''
       });
-    }, 2000);
+
+    } catch (error) {
+      console.error('Error sending enquiry:', error);
+      setSubmitMessage('There was an error sending your enquiry. Please try again or contact us directly.');
+    }
+
+    setIsSubmitting(false);
   };
 
   return (
@@ -75,7 +128,7 @@ const Contact = () => {
                   <div className="contact-icon">📍</div>
                   <div className="contact-text">
                     <h3>Location</h3>
-                    <p>Goa, India<br />Serving beautiful locations across North and South Goa</p>
+                    <p style={{color: '#000', opacity: 1}}>{contactInfo.address}</p>
                   </div>
                 </div>
 
@@ -83,7 +136,7 @@ const Contact = () => {
                   <div className="contact-icon">📞</div>
                   <div className="contact-text">
                     <h3>Phone</h3>
-                    <p>+91 98765 43210<br />Available 9 AM - 9 PM (IST)</p>
+                    <p style={{color: '#000', opacity: 1}}>{contactInfo.phone}<br />Available 9 AM - 9 PM (IST)</p>
                   </div>
                 </div>
 
@@ -91,7 +144,7 @@ const Contact = () => {
                   <div className="contact-icon">✉️</div>
                   <div className="contact-text">
                     <h3>Email</h3>
-                    <p>hello@romanceretreat.com<br />info@romanceretreat.com</p>
+                    <p style={{color: '#000', opacity: 1}}>{contactInfo.email}</p>
                   </div>
                 </div>
 
@@ -99,19 +152,25 @@ const Contact = () => {
                   <div className="contact-icon">⏰</div>
                   <div className="contact-text">
                     <h3>Response Time</h3>
-                    <p>Within 24 hours<br />Emergency planning: Same day response</p>
+                    <p style={{color: '#000', opacity: 1}}>Within 24 hours<br />Emergency planning: Same day response</p>
                   </div>
                 </div>
               </div>
 
               <div className="social-links">
                 <h3>Follow Our Journey</h3>
-                <div className="social-icons">
-                  <a href="https://instagram.com/romanceretreat" className="social-icon" aria-label="Instagram" target="_blank" rel="noopener noreferrer">📷</a>
-                  <a href="https://facebook.com/romanceretreat" className="social-icon" aria-label="Facebook" target="_blank" rel="noopener noreferrer">📘</a>
-                  <a href="https://wa.me/919876543210" className="social-icon" aria-label="WhatsApp" target="_blank" rel="noopener noreferrer">💬</a>
-                  <a href="https://pinterest.com/romanceretreat" className="social-icon" aria-label="Pinterest" target="_blank" rel="noopener noreferrer">📌</a>
-                </div>
+                <a href="https://facebook.com/romanceretreat" className="social-link" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+                  <img src={`${process.env.PUBLIC_URL}/facebook-logo.svg`} alt="Facebook" className="social-icon-img" />
+                </a>
+                <a href="https://instagram.com/romanceretreat" className="social-link" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+                  <img src={`${process.env.PUBLIC_URL}/instagram-logo.svg`} alt="Instagram" className="social-icon-img" />
+                </a>
+                <a href="https://x.com/romanceretreat" className="social-link" aria-label="Twitter" target="_blank" rel="noopener noreferrer">
+                  <img src={`${process.env.PUBLIC_URL}/x-logo.svg`} alt="X (Twitter)" className="social-icon-img" />
+                </a>
+                <a href={`https://wa.me/${contactInfo.whatsapp.replace(/[^0-9]/g, '')}`} className="social-link" aria-label="WhatsApp" target="_blank" rel="noopener noreferrer">
+                  <img src={`${process.env.PUBLIC_URL}/whatsapp_logo.svg`} alt="WhatsApp" className="social-icon-img" />
+                </a>
               </div>
             </div>
 
@@ -166,7 +225,7 @@ const Contact = () => {
                       value={formData.phone}
                       onChange={handleInputChange}
                       required
-                      placeholder="+91 98765 43210"
+                      placeholder={contactInfo.phone}
                     />
                   </div>
                   <div className="form-group">
@@ -257,7 +316,7 @@ const Contact = () => {
                   className="submit-btn"
                   disabled={isSubmitting}
                 >
-                  {isSubmitting ? 'Sending Your Request...' : 'Send Inquiry'}
+                  {isSubmitting ? 'Sending Your Request...' : 'Send Inquiry via WhatsApp'}
                 </button>
               </form>
             </div>

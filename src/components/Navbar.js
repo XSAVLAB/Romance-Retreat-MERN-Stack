@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useAdmin } from '../contexts/AdminContext';
 import './Navbar.css';
 import logo from './images/RR Logo2.png';
 
 const Navbar = () => {
+  const { adminData } = useAdmin();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
   const isHomePage = location.pathname === '/';
@@ -79,9 +81,21 @@ const Navbar = () => {
       {/* Moving Offers Banner */}
       <div className="offers-banner">
         <div className="banner-content">
-          <span className="offer-text">🌹 Limited Time Offer: 20% Off Valentine's Dinner Packages | Book Your Romantic Getaway Today! 💕</span>
-          <span className="offer-text">✨ Special Deal: Complimentary Couple's Massage with Yacht Dinner Booking | Create Unforgettable Memories 🛥️</span>
-          <span className="offer-text">🎉 Anniversary Special: Free Proposal Setup with Any Celebration Package | Love is in the Air! 💍</span>
+          {adminData.topBannerTexts && adminData.topBannerTexts
+            .filter(text => text.trim()) // Only show non-empty messages
+            .map((text, index, filteredArray) => (
+              <span key={index} className="banner-message-group">
+                <span className="offer-text">{text}</span>
+                {index < filteredArray.length - 1 && (
+                  <span className="banner-separator">
+                    {index % 4 === 0 && '🌹'}
+                    {index % 4 === 1 && '💕'}
+                    {index % 4 === 2 && '💍'}
+                    {index % 4 === 3 && '✨'}
+                  </span>
+                )}
+              </span>
+            ))}
         </div>
       </div>
       <nav 
@@ -150,6 +164,15 @@ const Navbar = () => {
               onClick={closeMenu}
             >
               Contact Us
+            </Link>
+          </li>
+          <li className="navbar-item">
+            <Link 
+              to="/booking" 
+              className="navbar-book-btn"
+              onClick={closeMenu}
+            >
+              💕 Book Now
             </Link>
           </li>
         </ul>

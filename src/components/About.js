@@ -1,20 +1,30 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './About.css';
 import Navbar from './Navbar';
 import Footer from './Footer';
 
 const About = () => {
+  const navigate = useNavigate();
+
+  const handleContactClick = () => {
+    navigate('/contact');
+    window.scrollTo(0, 0);
+  };
+
   return (
     <div className="about">
       <Navbar />
-      <div className="about-container">
-        <header className="about-header">
+      
+      {/* Hero Section */}
+      <section className="about-hero">
+        <div className="about-hero-content">
           <h1>About Us</h1>
-          <p className="about-intro">
-            Welcome to Romance Retreat — where every moment is crafted into a memory, and every experience is designed to celebrate your love story. Nestled in the heart of Goa, we specialise in creating intimate, unforgettable moments for couples, whether you're planning a surprise proposal, celebrating a milestone, or simply seeking to reconnect.
-          </p>
-        </header>
-
+          <p>Welcome to Romance Retreat — where every moment is crafted into a memory, and every experience is designed to celebrate your love story.</p>
+        </div>
+      </section>
+      
+      <div className="about-container">
         <section className="about-section">
           <h2>Our Story</h2>
           <p>
@@ -63,7 +73,7 @@ const About = () => {
           <p className="tagline">
             <strong>Romance Retreat — Where Love Finds Its Perfect Setting.</strong>
           </p>
-          <button className="contact-cta">Contact Us Today</button>
+          <button className="contact-cta" onClick={handleContactClick}>Contact Us Today</button>
         </section>
       </div>
       <Footer />

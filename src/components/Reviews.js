@@ -3,24 +3,18 @@ import './Reviews.css';
 import Navbar from './Navbar';
 import Footer from './Footer';
 
-const Reviews = () => {
-  const [reviews, setReviews] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [averageRating, setAverageRating] = useState(0);
-  const [totalReviews, setTotalReviews] = useState(0);
-
-  // Sample reviews data - will be replaced with Google Places API in the future
-  const sampleReviews = [
-    {
-      id: 1,
-      author_name: "Sarah Johnson",
-      author_url: "#",
-      profile_photo_url: "https://via.placeholder.com/100x100/d4af37/fff?text=SJ",
-      rating: 5,
-      relative_time_description: "2 weeks ago",
-      text: "Absolutely magical experience! The romantic dinner setup on the beach was beyond our expectations. Every detail was perfect, from the candlelit table to the sunset timing. Romance Retreat truly made our anniversary unforgettable. Highly recommend!",
-      time: Date.now() - 1209600000 // 2 weeks ago
-    },
+// Sample reviews data - will be replaced with Google Places API in the future
+const sampleReviews = [
+  {
+    id: 1,
+    author_name: "Sarah Johnson",
+    author_url: "#",
+    profile_photo_url: "https://via.placeholder.com/100x100/d4af37/fff?text=SJ",
+    rating: 5,
+    relative_time_description: "2 weeks ago",
+    text: "Absolutely magical experience! The romantic dinner setup on the beach was beyond our expectations. Every detail was perfect, from the candlelit table to the sunset timing. Romance Retreat truly made our anniversary unforgettable. Highly recommend!",
+    time: Date.now() - 1209600000 // 2 weeks ago
+  },
     {
       id: 2,
       author_name: "Michael & Emma",
@@ -73,6 +67,12 @@ const Reviews = () => {
     }
   ];
 
+const Reviews = () => {
+  const [reviews, setReviews] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [averageRating, setAverageRating] = useState(0);
+  const [totalReviews, setTotalReviews] = useState(0);
+
   useEffect(() => {
     // Simulate loading time
     const timer = setTimeout(() => {
@@ -84,34 +84,7 @@ const Reviews = () => {
     }, 1000);
 
     return () => clearTimeout(timer);
-  }, []);
-
-  // Future Google Places API integration function
-  const fetchGoogleReviews = async () => {
-    // This will be implemented when Google Places API is set up
-    const placeId = process.env.REACT_APP_GOOGLE_PLACE_ID;
-    const apiKey = process.env.REACT_APP_GOOGLE_PLACES_API_KEY;
-    
-    if (!placeId || !apiKey) {
-      console.log('Google Places API not configured yet - using sample data');
-      return;
-    }
-
-    try {
-      // Uncomment when ready to use Google Places API
-      /*
-      const response = await fetch(
-        `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=reviews,rating,user_ratings_total&key=${apiKey}`
-      );
-      const data = await response.json();
-      setReviews(data.result.reviews || []);
-      setAverageRating(data.result.rating || 0);
-      setTotalReviews(data.result.user_ratings_total || 0);
-      */
-    } catch (error) {
-      console.error('Error fetching Google Reviews:', error);
-    }
-  };
+  }, []); // No dependencies needed since sampleReviews is now outside component
 
   const renderStars = (rating) => {
     const stars = [];
@@ -151,25 +124,30 @@ const Reviews = () => {
   return (
     <div className="reviews">
       <Navbar />
-      <div className="reviews-container">
-        <header className="reviews-header">
+      
+      {/* Hero Section */}
+      <section className="reviews-hero">
+        <div className="reviews-hero-content">
           <h1>What Our Clients Say</h1>
-          <div className="reviews-summary">
-            <div className="rating-overview">
-              <div className="average-rating">
-                <span className="rating-number">{averageRating.toFixed(1)}</span>
-                <div className="rating-stars">
-                  {renderStars(averageRating)}
-                </div>
+          <p>Discover what makes Romance Retreat special through the heartfelt stories and experiences shared by our cherished clients.</p>
+        </div>
+      </section>
+      
+      <div className="reviews-container">
+        <section className="reviews-summary">
+          <div className="rating-overview">
+            <div className="average-rating">
+              <span className="rating-number">{averageRating.toFixed(1)}</span>
+              <div className="rating-stars">
+                {renderStars(averageRating)}
               </div>
-              <p className="rating-text">Based on {totalReviews} reviews</p>
             </div>
+            <p className="rating-text">Based on {totalReviews} reviews</p>
           </div>
           <p className="reviews-intro">
-            Discover what makes Romance Retreat special through the words of our cherished clients. 
             Every review tells a story of love, celebration, and unforgettable moments we've had the honor to create.
           </p>
-        </header>
+        </section>
 
         <section className="reviews-grid">
           {reviews.map((review) => (

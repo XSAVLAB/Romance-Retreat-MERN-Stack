@@ -16,7 +16,7 @@ const DinnerDateExperiences = () => {
   const { getPrice } = usePricing();
 
   const handleBookNow = () => {
-    navigate('/contact');
+    navigate('/booking?service=Dinner Date Experiences');
     window.scrollTo(0, 0);
   };
 
@@ -69,7 +69,7 @@ const DinnerDateExperiences = () => {
           <div className="service-hero-content">
             <h1>Dinner Date Experiences</h1>
             <p>Just the two of you, in unique locations — on the beach, in a garden, or on a private yacht</p>
-            <div className="service-hero-price">
+            <div className="service-hero-price" onClick={handleBookNow} style={{cursor: 'pointer'}}>
               Starting From: ₹{getPrice('dinnerDate')}
               <br />
               <span style={{fontSize: '1.1rem', fontWeight: '600'}}>Book Now</span>
@@ -91,7 +91,7 @@ const DinnerDateExperiences = () => {
             </p>
 
             <div className="service-features">
-              <h3>Dinner Date Experience Includes:</h3>
+              <h3>Customize Your Experience With:</h3>
               <ul>
                 <li>🍽️ Private table setup for complete intimacy</li>
                 <li>🕯️ Romantic candlelit ambiance and mood lighting</li>
@@ -99,7 +99,7 @@ const DinnerDateExperiences = () => {
                 <li>🥂 Welcome cocktails and wine pairings</li>
                 <li>👨‍🍳 Personal chef or premium catering service</li>
                 <li>🎵 Soft background music or live acoustic performances</li>
-                <li>📸 Optional couple's photography session</li>
+                <li>📸 Couple's photography session (paid service, arranged separately)</li>
                 <li>🌟 Surprise romantic elements throughout the evening</li>
               </ul>
             </div>

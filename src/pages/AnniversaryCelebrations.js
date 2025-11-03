@@ -16,7 +16,7 @@ const AnniversaryCelebrations = () => {
   const { getPrice } = usePricing();
 
   const handleBookNow = () => {
-    navigate('/contact');
+    navigate('/booking?service=Anniversary Celebrations');
     window.scrollTo(0, 0);
   };
 
@@ -69,7 +69,7 @@ const AnniversaryCelebrations = () => {
           <div className="service-hero-content">
             <h1>Anniversary Celebrations</h1>
             <p>Milestone moments, memory recreations, milestone romance</p>
-            <div className="service-hero-price">
+            <div className="service-hero-price" onClick={handleBookNow} style={{cursor: 'pointer'}}>
               Starting From: ₹{getPrice('anniversaryCelebrations')}
               <br />
               <span style={{fontSize: '1.1rem', fontWeight: '600'}}>Book Now</span>
@@ -91,10 +91,10 @@ const AnniversaryCelebrations = () => {
             </p>
 
             <div className="service-features">
-              <h3>Anniversary Celebration Includes:</h3>
+              <h3>Customize Your Experience With:</h3>
               <ul>
                 <li>🎂 Personalized anniversary cake and celebration setup</li>
-                <li>📸 Professional photography to capture milestone moments</li>
+                <li>📸 Professional photography to capture milestone moments (paid service, arranged separately)</li>
                 <li>🌹 Anniversary-themed floral arrangements and decorations</li>
                 <li>🍾 Anniversary champagne toast and special cocktails</li>
                 <li>🎵 Music from your wedding or special songs playlist</li>
