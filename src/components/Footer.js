@@ -2,11 +2,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useContactInfo } from '../hooks/useContactInfo';
 import './Footer.css';
-import logo from './images/RR Logo2.png';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   const contactInfo = useContactInfo();
+
+  const handleSubscribe = () => {
+    alert('Feature Coming Soon');
+  };
 
   return (
     <footer className="footer">
@@ -16,7 +19,7 @@ const Footer = () => {
           {/* Company Info Section */}
           <div className="footer-section company-info">
             <div className="footer-logo">
-              <img src={logo} alt="Romance Retreat" className="footer-logo-img" />
+              <img src={`${process.env.PUBLIC_URL}/Red_Logo.png`} alt="Romance Retreat" className="footer-logo-img" />
             </div>
             <p className="company-description">
               Creating unforgettable romantic experiences in the heart of Goa. 
@@ -134,7 +137,7 @@ const Footer = () => {
                 placeholder="Enter your email address"
                 className="newsletter-input"
               />
-              <button className="newsletter-btn">Subscribe</button>
+              <button className="newsletter-btn" onClick={handleSubscribe}>Subscribe</button>
             </div>
           </div>
         </div>
@@ -155,7 +158,7 @@ const Footer = () => {
               <Link to="/admin" style={{color: '#888', fontSize: '0.8rem'}}>Admin</Link>
             </div>
             <div className="designed-by">
-              <p>Crafted with ❤️ for unforgettable moments</p>
+              <p>Crafted with ❤️ by <a href="https://www.xsavlab.com/" target="_blank" rel="noopener noreferrer" style={{color: '#ff6b7a', textDecoration: 'none'}}>XSAVLAB</a></p>
             </div>
           </div>
         </div>

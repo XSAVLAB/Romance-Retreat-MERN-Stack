@@ -33,13 +33,15 @@
 .footer-logo-img {
   height: 80px;
   width: auto;
-  filter: brightness(0) invert(1) drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5));
+  /* Removed filter to show the Red_Logo in its original colors */
   transition: all 0.3s ease;
+  /* Removed white background and padding to eliminate white border */
 }
 
 .footer-logo-img:hover {
   transform: scale(1.05);
-  filter: brightness(0) invert(1) drop-shadow(3px 3px 6px rgba(0, 0, 0, 0.7));
+  /* Removed filter to maintain original logo colors on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .company-description {
