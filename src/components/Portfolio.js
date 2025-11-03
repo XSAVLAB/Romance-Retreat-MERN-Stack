@@ -200,7 +200,6 @@ const Portfolio = () => {
                   />
                   <div className="portfolio-overlay">
                     <div className="portfolio-details">
-                      <span className="portfolio-category">{item.category}</span>
                       <h3>{item.title}</h3>
                       <p className="portfolio-location">📍 {item.location}</p>
                       <p className="portfolio-description">{item.description}</p>
