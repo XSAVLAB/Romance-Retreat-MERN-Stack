@@ -5,15 +5,30 @@
 
 /* Hero Section */
 .contact-hero {
-  background: linear-gradient(135deg, rgba(212, 175, 55, 0.9), rgba(184, 134, 11, 0.9)), 
-              url('./images/Home.jpg') center/cover;
-  height: 50vh;
+  background: url('./images/Home.jpg') center/cover;
+  height: 70vh;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
   color: white;
   margin-top: 120px;
+}
+
+.contact-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.4) 100%);
+}
+
+.contact-hero-content {
+  position: relative;
+  z-index: 1;
 }
 
 .contact-hero-content h1 {

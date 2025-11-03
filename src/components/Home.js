@@ -4,6 +4,7 @@ import './Home.css';
 import homeImage from './images/Home.jpg';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import { usePricing } from '../contexts/PricingContext';
 
 // Import service images for preview
 import customizedMomentsImg from './images/Services/Customized_Moments.jpg';
@@ -16,6 +17,7 @@ import yachtDinnerImg from './images/Services/Yatch_Dinner.jpg';
 
 const Home = () => {
   const navigate = useNavigate();
+  const { getPrice } = usePricing();
 
   const handleLearnMoreClick = () => {
     navigate('/about');
@@ -137,8 +139,13 @@ const Home = () => {
                 <img src={romanticDinnerImg} alt="Romantic Dinners" />
               </div>
               <div className="service-preview-content">
-                <h3>Romantic Dinners</h3>
-                <p>Candle-lit moments, beachfront tables, rooftop ambience. Experience intimate dining like never before.</p>
+                <div className="service-preview-text-content">
+                  <h3>Romantic Dinners</h3>
+                  <p>Candle-lit moments, beachfront tables, rooftop ambience. Experience intimate dining like never before.</p>
+                </div>
+                <div className="service-price">
+                  Starting From: ₹{getPrice('romanticDinners')}
+                </div>
               </div>
             </div>
 
@@ -147,8 +154,13 @@ const Home = () => {
                 <img src={weddingProposalImg} alt="Wedding Proposals" />
               </div>
               <div className="service-preview-content">
-                <h3>Wedding Proposals</h3>
-                <p>Thoughtfully designed settings, surprise moments, professional coordination. Make your proposal perfect.</p>
+                <div className="service-preview-text-content">
+                  <h3>Wedding Proposals</h3>
+                  <p>Thoughtfully designed settings, surprise moments, professional coordination. Make your proposal perfect.</p>
+                </div>
+                <div className="service-price">
+                  Starting From: ₹{getPrice('weddingProposals')}
+                </div>
               </div>
             </div>
 
@@ -157,8 +169,13 @@ const Home = () => {
                 <img src={yachtDinnerImg} alt="Yacht Dinners" />
               </div>
               <div className="service-preview-content">
-                <h3>Yacht Dinners</h3>
-                <p>Sail into romance with exclusive yacht dining experiences. Luxury meets intimacy on the open waters.</p>
+                <div className="service-preview-text-content">
+                  <h3>Yacht Dinners</h3>
+                  <p>Sail into romance with exclusive yacht dining experiences. Luxury meets intimacy on the open waters.</p>
+                </div>
+                <div className="service-price">
+                  Starting From: ₹{getPrice('yachtDinner')}
+                </div>
               </div>
             </div>
           </div>

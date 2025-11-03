@@ -1,7 +1,9 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Services.css';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import { usePricing } from '../contexts/PricingContext';
 
 // Import service images
 import romanticDinnerImg from './images/Services/Romantic_Dinner.jpg';
@@ -15,6 +17,13 @@ import coupleMassageImg from './images/Services/Couple_Massage.jpg';
 import customizedMomentsImg from './images/Services/Customized_Moments.jpg';
 
 const Services = () => {
+  const { getPrice } = usePricing();
+  const navigate = useNavigate();
+
+  const handleServiceClick = (servicePath) => {
+    navigate(servicePath);
+    window.scrollTo(0, 0);
+  };
   return (
     <div className="services">
       <Navbar />
@@ -29,93 +38,138 @@ const Services = () => {
 
         <section className="services-content">
           <div className="services-grid">
-            <div className="service-card">
+            <div className="service-card" onClick={() => handleServiceClick('/services/romantic-dinners')}>
               <div className="service-image">
                 <img src={romanticDinnerImg} alt="Romantic Dinners" />
               </div>
               <div className="service-content">
-                <h3>Romantic Dinners</h3>
-                <p>Candle-lit moments, beachfront tables, rooftop ambience. Experience intimate dining like never before.</p>
+                <div className="service-text-content">
+                  <h3>Romantic Dinners</h3>
+                  <p>Candle-lit moments, beachfront tables, rooftop ambience. Experience intimate dining like never before.</p>
+                </div>
+                <div className="service-price">
+                  Starting From: ₹{getPrice('romanticDinners')}
+                </div>
               </div>
             </div>
 
-            <div className="service-card">
+            <div className="service-card" onClick={() => handleServiceClick('/services/wedding-proposals')}>
               <div className="service-image">
                 <img src={weddingProposalImg} alt="Wedding Proposals" />
               </div>
               <div className="service-content">
-                <h3>Wedding Proposals</h3>
-                <p>Thoughtfully designed settings, surprise moments, professional coordination. Make your proposal perfect.</p>
+                <div className="service-text-content">
+                  <h3>Wedding Proposals</h3>
+                  <p>Thoughtfully designed settings, surprise moments, professional coordination. Make your proposal perfect.</p>
+                </div>
+                <div className="service-price">
+                  Starting From: ₹{getPrice('weddingProposals')}
+                </div>
               </div>
             </div>
 
-            <div className="service-card">
+            <div className="service-card" onClick={() => handleServiceClick('/services/valentines-dinners')}>
               <div className="service-image">
                 <img src={valentinesDinnerImg} alt="Valentine's Dinners" />
               </div>
               <div className="service-content">
-                <h3>Valentine's Dinners</h3>
-                <p>Seasonal specials, curated menus, love-filled décor. Celebrate love in the most romantic way.</p>
+                <div className="service-text-content">
+                  <h3>Valentine's Dinners</h3>
+                  <p>Seasonal specials, curated menus, love-filled décor. Celebrate love in the most romantic way.</p>
+                </div>
+                <div className="service-price">
+                  Starting From: ₹{getPrice('valentinesDinners')}
+                </div>
               </div>
             </div>
 
-            <div className="service-card">
+            <div className="service-card" onClick={() => handleServiceClick('/services/birthday-celebrations')}>
               <div className="service-image">
                 <img src={birthdayCelebrationsImg} alt="Birthday Celebrations" />
               </div>
               <div className="service-content">
-                <h3>Birthday Celebrations</h3>
-                <p>Make your partner's birthday unforgettable with personalised packages, surprise setups, and beautiful keepsakes.</p>
+                <div className="service-text-content">
+                  <h3>Birthday Celebrations</h3>
+                  <p>Make your partner's birthday unforgettable with personalised packages, surprise setups, and beautiful keepsakes.</p>
+                </div>
+                <div className="service-price">
+                  Starting From: ₹{getPrice('birthdayCelebrations')}
+                </div>
               </div>
             </div>
 
-            <div className="service-card">
+            <div className="service-card" onClick={() => handleServiceClick('/services/anniversary-celebrations')}>
               <div className="service-image">
                 <img src={anniversaryCelebrationsImg} alt="Anniversary Celebrations" />
               </div>
               <div className="service-content">
-                <h3>Anniversary Celebrations</h3>
-                <p>Celebrate your love milestones with themed decorations, romantic ambiance, and custom anniversary experiences.</p>
+                <div className="service-text-content">
+                  <h3>Anniversary Celebrations</h3>
+                  <p>Celebrate your love milestones with themed decorations, romantic ambiance, and custom anniversary experiences.</p>
+                </div>
+                <div className="service-price">
+                  Starting From: ₹{getPrice('anniversaryCelebrations')}
+                </div>
               </div>
             </div>
 
-            <div className="service-card">
+            <div className="service-card" onClick={() => handleServiceClick('/services/dinner-date-experiences')}>
               <div className="service-image">
                 <img src={dinnerDateImg} alt="Dinner Date Experiences" />
               </div>
               <div className="service-content">
-                <h3>Dinner Date Experiences</h3>
-                <p>Just the two of you, in unique locations — on the beach, in a garden, or on a private yacht.</p>
+                <div className="service-text-content">
+                  <h3>Dinner Date Experiences</h3>
+                  <p>Just the two of you, in unique locations — on the beach, in a garden, or on a private yacht.</p>
+                </div>
+                <div className="service-price">
+                  Starting From: ₹{getPrice('dinnerDate')}
+                </div>
               </div>
             </div>
 
-            <div className="service-card">
+            <div className="service-card" onClick={() => handleServiceClick('/services/yacht-dinner')}>
               <div className="service-image">
                 <img src={yachtDinnerImg} alt="Yacht Dinner" />
               </div>
               <div className="service-content">
-                <h3>Yacht Dinner</h3>
-                <p>Cruise along the coastline, sip your drink as the sun melts into the sea, dine under the stars.</p>
+                <div className="service-text-content">
+                  <h3>Yacht Dinner</h3>
+                  <p>Cruise along the coastline, sip your drink as the sun melts into the sea, dine under the stars.</p>
+                </div>
+                <div className="service-price">
+                  Starting From: ₹{getPrice('yachtDinner')}
+                </div>
               </div>
             </div>
 
-            <div className="service-card">
+            <div className="service-card" onClick={() => handleServiceClick('/services/couple-massage')}>
               <div className="service-image">
                 <img src={coupleMassageImg} alt="Couple Massage & Spa Rituals" />
               </div>
               <div className="service-content">
-                <h3>Couple Massage & Spa Rituals</h3>
-                <p>Reconnect, relax, rejuvenate — side by side, in a serene space designed for two.</p>
+                <div className="service-text-content">
+                  <h3>Couple Massage & Spa Rituals</h3>
+                  <p>Reconnect, relax, rejuvenate — side by side, in a serene space designed for two.</p>
+                </div>
+                <div className="service-price">
+                  Starting From: ₹{getPrice('coupleMassage')}
+                </div>
               </div>
             </div>
 
-            <div className="service-card">
+            <div className="service-card" onClick={() => handleServiceClick('/services/customized-moments')}>
               <div className="service-image">
                 <img src={customizedMomentsImg} alt="Customised Romance Moments" />
               </div>
               <div className="service-content">
-                <h3>Customised Romance Moments</h3>
-                <p>Tell us your dream, and we'll craft a bespoke experience that's uniquely yours.</p>
+                <div className="service-text-content">
+                  <h3>Customised Romance Moments</h3>
+                  <p>Tell us your dream, and we'll craft a bespoke experience that's uniquely yours.</p>
+                </div>
+                <div className="service-price">
+                  Starting From: ₹{getPrice('customizedMoments')}
+                </div>
               </div>
             </div>
           </div>
@@ -126,7 +180,7 @@ const Services = () => {
           <p>
             Whatever your occasion — big or small — let us take care of the details so you can focus on each other.
           </p>
-          <button className="contact-cta">Book Your Experience</button>
+          <button className="contact-cta" onClick={() => handleServiceClick('/contact')}>Book Your Experience</button>
         </section>
       </div>
       <Footer />

@@ -62,14 +62,15 @@
   text-align: center;
   position: relative;
   overflow: hidden;
-  height: 450px;
+  height: 518px; /* Increased from 450px by 15% */
   display: flex;
   flex-direction: column;
   transform: translateY(0);
+  cursor: pointer; /* Added cursor pointer for clickable cards */
 }
 
 .service-image {
-  height: 60%;
+  height: 55%; /* Reduced from 60% to 55% to accommodate larger content area */
   width: 100%;
   border-radius: 25px 25px 0 0;
   overflow: hidden;
@@ -111,17 +112,25 @@
 }
 
 .service-content {
-  padding: 1.2rem 1.8rem 1.8rem;
+  padding: 1.4rem 1.8rem 2rem; /* Increased padding */
   background: rgba(255, 255, 255, 0.98);
   backdrop-filter: blur(5px);
-  height: 40%;
+  height: 45%; /* Increased from 40% to 45% */
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start; /* Changed back to flex-start */
   border-radius: 0 0 25px 25px;
   position: relative;
   flex-shrink: 0;
   box-sizing: border-box;
+}
+
+.service-text-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-bottom: 4rem; /* Add space for the fixed button */
 }
 
 .service-content::before {
@@ -178,9 +187,35 @@
   font-family: 'Playfair Display', serif;
   color: #555;
   line-height: 1.4;
-  margin: 0;
+  margin: 0 0 1rem 0;
   font-size: 0.9rem;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.service-price {
+  background: linear-gradient(135deg, #ff4757, #ff6b7a);
+  color: white;
+  padding: 0.8rem 1.2rem;
+  border-radius: 25px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 15px rgba(255, 71, 87, 0.3);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  transform: translateY(0);
+  transition: all 0.3s ease;
+  flex-shrink: 0; /* Prevent shrinking */
+  position: absolute;
+  bottom: 1.5rem; /* Fixed distance from bottom */
+  left: 1.8rem;
+  right: 1.8rem;
+  margin: 0; /* Remove margin */
+}
+
+.service-card:hover .service-price {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 71, 87, 0.4);
 }
 
 .cta-section {
