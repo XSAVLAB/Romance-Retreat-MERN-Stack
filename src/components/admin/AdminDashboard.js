@@ -38,7 +38,6 @@ const AdminDashboard = () => {
     return defaultContactInfo;
   });
   const [newImageUrl, setNewImageUrl] = useState('');
-  const [isUploading, setIsUploading] = useState(false);
   const [saveMessage, setSaveMessage] = useState('');
   const [tempPrices, setTempPrices] = useState(prices);
   const [hasUnsavedPrices, setHasUnsavedPrices] = useState(false);
@@ -206,73 +205,6 @@ const AdminDashboard = () => {
     }
     
     setTimeout(() => setSaveMessage(''), 3000);
-  };
-
-  // Handle file upload from device
-  const handleFileUpload = (event) => {
-    const file = event.target.files[0];
-    if (!file) return;
-
-    // Validate file type
-    const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
-    if (!validTypes.includes(file.type)) {
-      alert('Please select a valid image file (JPEG, PNG, GIF, or WebP)');
-      return;
-    }
-
-    // Validate file size (max 5MB)
-    const maxSize = 5 * 1024 * 1024; // 5MB in bytes
-    if (file.size > maxSize) {
-      alert('File size too large. Please select an image smaller than 5MB.');
-      return;
-    }
-
-    setIsUploading(true);
-
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const base64Image = e.target.result;
-      addPortfolioImage(base64Image);
-      setSaveMessage('Image uploaded successfully!');
-      setTimeout(() => setSaveMessage(''), 3000);
-      setIsUploading(false);
-      // Reset file input
-      event.target.value = '';
-    };
-
-    reader.onerror = () => {
-      alert('Error reading file. Please try again.');
-      setIsUploading(false);
-    };
-
-    reader.readAsDataURL(file);
-  };
-
-  // Handle drag and drop
-  const handleDragOver = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-  };
-
-  const handleDragEnter = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-  };
-
-  const handleDragLeave = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-  };
-
-  const handleDrop = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    const files = Array.from(e.dataTransfer.files);
-    if (files.length > 0) {
-      const fakeEvent = { target: { files: [files[0]] } };
-      handleFileUpload(fakeEvent);
-    }
   };
 
   const serviceNames = {
@@ -456,36 +388,6 @@ const AdminDashboard = () => {
               <p>Add, remove, and organize portfolio images. Images are automatically saved when uploaded or added via URL.</p>
               
               <div className="add-image-section">
-                {/* File Upload Option */}
-                <div className="upload-methods">
-                  <h3>Upload from Device</h3>
-                  <div 
-                    className="drag-drop-area"
-                    onDragOver={handleDragOver}
-                    onDragEnter={handleDragEnter}
-                    onDragLeave={handleDragLeave}
-                    onDrop={handleDrop}
-                  >
-                    <div className="drag-drop-content">
-                      <div className="upload-icon">📷</div>
-                      <p>Drag & drop images here or</p>
-                      <label className="file-upload-label">
-                        <input
-                          type="file"
-                          accept="image/*"
-                          onChange={handleFileUpload}
-                          className="file-upload-input"
-                          disabled={isUploading}
-                        />
-                        <span className="file-upload-button">
-                          {isUploading ? 'Uploading...' : 'Choose File'}
-                        </span>
-                      </label>
-                      <p className="upload-info">Supports: JPEG, PNG, GIF, WebP (Max 5MB)</p>
-                    </div>
-                  </div>
-                </div>
-
                 {/* URL Option */}
                 <div className="upload-methods">
                   <h3>Add from URL</h3>

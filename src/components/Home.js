@@ -6,6 +6,7 @@ import Navbar from './Navbar';
 import Footer from './Footer';
 import { usePricing } from '../contexts/PricingContext';
 import { useAdmin } from '../contexts/AdminContext';
+import { useContactInfo } from '../hooks/useContactInfo';
 
 // Import service images for preview
 import customizedMomentsImg from './images/Services/Customized_Moments.jpg';
@@ -20,6 +21,7 @@ const Home = () => {
   const navigate = useNavigate();
   const { getPrice } = usePricing();
   const { adminData } = useAdmin();
+  const contactInfo = useContactInfo();
 
   const handleLearnMoreClick = () => {
     navigate('/about');
@@ -254,6 +256,17 @@ const Home = () => {
           </div>
         </div>
       </section>
+
+      {/* Floating WhatsApp Button */}
+      <a 
+        href={`https://wa.me/${contactInfo.whatsapp.replace(/[^0-9]/g, '')}`} 
+        className="floating-whatsapp" 
+        aria-label="WhatsApp" 
+        target="_blank" 
+        rel="noopener noreferrer"
+      >
+        <img src={`${process.env.PUBLIC_URL}/whatsapp_logo.svg`} alt="WhatsApp" className="floating-whatsapp-icon" />
+      </a>
 
       <Footer />
     </div>

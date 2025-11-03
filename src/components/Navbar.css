@@ -14,7 +14,7 @@
 
 .banner-content {
   display: flex;
-  animation: scroll 60s linear infinite;
+  animation: scroll 30s linear infinite;
   white-space: nowrap;
 }
 
@@ -377,6 +377,6 @@
   }
 
   .banner-content {
-    animation: scroll 45s linear infinite;
+    animation: scroll 15s linear infinite;
   }
 }
