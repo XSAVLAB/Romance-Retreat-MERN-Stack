@@ -11,7 +11,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: npm ci && npm run build
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - name: Build
+        run: npm ci && npm run build
+        env:
+          REACT_APP_ADMIN_USERNAME: ${{ secrets.REACT_APP_ADMIN_USERNAME }}
+          REACT_APP_ADMIN_PASSWORD: ${{ secrets.REACT_APP_ADMIN_PASSWORD }}
+          REACT_APP_WHATSAPP_NUMBER: ${{ secrets.REACT_APP_WHATSAPP_NUMBER }}
+          REACT_APP_FACEBOOK_URL: ${{ secrets.REACT_APP_FACEBOOK_URL }}
+          REACT_APP_INSTAGRAM_URL: ${{ secrets.REACT_APP_INSTAGRAM_URL }}
+          REACT_APP_TWITTER_URL: ${{ secrets.REACT_APP_TWITTER_URL }}
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}

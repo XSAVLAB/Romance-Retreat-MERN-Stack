@@ -51,11 +51,10 @@ html {
 
 .hero-subtitle {
   font-family: 'Playfair Display', serif;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   margin-bottom: 2.5rem;
   line-height: 1.6;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-  font-style: italic;
   font-weight: 400;
 }
 
@@ -148,9 +147,23 @@ html {
     font-size: 2.8rem;
   }
 
+  .about-intro {
+    max-width: 700px;
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+
   .learn-more-btn {
     padding: 0.9rem 2rem;
     font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-intro {
+    max-width: 100%;
+    font-size: 1rem;
+    line-height: 1.7;
   }
 }
 
@@ -178,12 +191,11 @@ html {
 
 .about-intro {
   font-family: 'Playfair Display', serif;
-  font-size: 1.25rem;
-  color: #555;
-  max-width: 800px;
+  font-size: 1.2rem;
+  color: #666;
+  max-width: 900px;
   margin: 0 auto 2.5rem;
-  font-style: italic;
-  line-height: 1.7;
+  line-height: 1.5;
 }
 
 .learn-more-btn {
@@ -196,6 +208,7 @@ html {
   font-family: 'Playfair Display', serif;
   font-weight: 600;
   border-radius: 50px;
+  border: none;
   transition: all 0.3s ease;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -373,11 +386,10 @@ html {
 .services-intro {
   font-family: 'Playfair Display', serif;
   font-size: 1.2rem;
-  color: #555;
-  max-width: 700px;
+  color: #666;
+  max-width: 800px;
   margin: 0 auto;
-  font-style: italic;
-  line-height: 1.8;
+  line-height: 1.5;
 }
 
 .services-preview-grid {
@@ -615,6 +627,7 @@ html {
   max-width: 600px;
   margin: 0 auto;
   line-height: 1.6;
+  font-style: normal;
 }
 
 .reviews-preview-grid {
@@ -770,6 +783,8 @@ html {
   
   .services-intro {
     font-size: 1.1rem;
+    max-width: 700px;
+    line-height: 1.6;
   }
   
   .services-preview-grid {
@@ -841,6 +856,8 @@ html {
   
   .services-intro {
     font-size: 1rem;
+    max-width: 100%;
+    line-height: 1.7;
   }
   
   .view-all-services-btn {
