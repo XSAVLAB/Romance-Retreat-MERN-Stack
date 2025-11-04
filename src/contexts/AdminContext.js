@@ -56,6 +56,8 @@ export const AdminProvider = ({ children }) => {
     finalPassword: adminCredentials.password ? '[SET]' : '[NOT SET]'
   });
 
+  // Test deployment timestamp: 2025-11-05
+
   // Warn if environment variables are not set properly
   if (!process.env.REACT_APP_ADMIN_PASSWORD || process.env.REACT_APP_ADMIN_PASSWORD === 'defaultpassword') {
     console.warn('⚠️  Admin password not set in environment variables. Using default password is not secure for production!');
