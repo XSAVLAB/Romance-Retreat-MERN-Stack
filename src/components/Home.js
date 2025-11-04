@@ -17,6 +17,7 @@ import weddingProposalImg from './images/Services/Wedding_Proposal.jpg';
 import romanticDinnerImg from './images/Services/Romantic_Dinner.jpg';
 import yachtDinnerImg from './images/Services/Yatch_Dinner.jpg';
 
+// Home Component
 const Home = () => {
   const navigate = useNavigate();
   const { getPrice } = usePricing();
