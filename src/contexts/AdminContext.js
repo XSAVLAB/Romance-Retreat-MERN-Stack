@@ -48,6 +48,14 @@ export const AdminProvider = ({ children }) => {
     password: process.env.REACT_APP_ADMIN_PASSWORD || 'defaultpassword'
   };
 
+  // Debug logging for production troubleshooting
+  console.log('🔐 Admin credentials check:', {
+    usernameFromEnv: process.env.REACT_APP_ADMIN_USERNAME,
+    passwordFromEnv: process.env.REACT_APP_ADMIN_PASSWORD ? '[SET]' : '[NOT SET]',
+    finalUsername: adminCredentials.username,
+    finalPassword: adminCredentials.password ? '[SET]' : '[NOT SET]'
+  });
+
   // Warn if environment variables are not set properly
   if (!process.env.REACT_APP_ADMIN_PASSWORD || process.env.REACT_APP_ADMIN_PASSWORD === 'defaultpassword') {
     console.warn('⚠️  Admin password not set in environment variables. Using default password is not secure for production!');
@@ -110,6 +118,15 @@ export const AdminProvider = ({ children }) => {
   }, [adminData, isAdminLoggedIn]);
 
   const loginAdmin = (username, password) => {
+    console.log('🔍 Login attempt:', {
+      providedUsername: username,
+      providedPassword: password,
+      expectedUsername: adminCredentials.username,
+      expectedPassword: adminCredentials.password,
+      usernameMatch: username === adminCredentials.username,
+      passwordMatch: password === adminCredentials.password
+    });
+    
     if (username === adminCredentials.username && password === adminCredentials.password) {
       setIsAdminLoggedIn(true);
       const sessionData = {
