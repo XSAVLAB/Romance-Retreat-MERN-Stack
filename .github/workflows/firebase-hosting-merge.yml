@@ -16,12 +16,13 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
-      - name: Debug Environment Variables
+      - name: Build with Environment Variables
         run: |
-          echo "Checking environment variables..."
-          echo "REACT_APP_ADMIN_USERNAME: ${{ secrets.REACT_APP_ADMIN_USERNAME }}"
-          echo "REACT_APP_ADMIN_PASSWORD: [HIDDEN]"
-          echo "REACT_APP_WHATSAPP_NUMBER: ${{ secrets.REACT_APP_WHATSAPP_NUMBER }}"
+          echo "Building React app with environment variables..."
+          echo "Environment check before build:"
+          echo "REACT_APP_ADMIN_USERNAME: $REACT_APP_ADMIN_USERNAME"
+          echo "REACT_APP_ADMIN_PASSWORD: [MASKED]"
+          npm ci && npm run build
         env:
           REACT_APP_ADMIN_USERNAME: ${{ secrets.REACT_APP_ADMIN_USERNAME }}
           REACT_APP_ADMIN_PASSWORD: ${{ secrets.REACT_APP_ADMIN_PASSWORD }}
@@ -29,15 +30,14 @@ jobs:
           REACT_APP_FACEBOOK_URL: ${{ secrets.REACT_APP_FACEBOOK_URL }}
           REACT_APP_INSTAGRAM_URL: ${{ secrets.REACT_APP_INSTAGRAM_URL }}
           REACT_APP_TWITTER_URL: ${{ secrets.REACT_APP_TWITTER_URL }}
-      - name: Build
-        run: npm ci && npm run build
-        env:
-          REACT_APP_ADMIN_USERNAME: ${{ secrets.REACT_APP_ADMIN_USERNAME }}
-          REACT_APP_ADMIN_PASSWORD: ${{ secrets.REACT_APP_ADMIN_PASSWORD }}
-          REACT_APP_WHATSAPP_NUMBER: ${{ secrets.REACT_APP_WHATSAPP_NUMBER }}
-          REACT_APP_FACEBOOK_URL: ${{ secrets.REACT_APP_FACEBOOK_URL }}
-          REACT_APP_INSTAGRAM_URL: ${{ secrets.REACT_APP_INSTAGRAM_URL }}
-          REACT_APP_TWITTER_URL: ${{ secrets.REACT_APP_TWITTER_URL }}
+      - name: Verify Build Contains Environment Variables
+        run: |
+          echo "Checking if built files contain environment variables..."
+          if grep -r "admin" build/static/js/ > /dev/null; then
+            echo "✅ Found admin username in built files"
+          else
+            echo "❌ Admin username not found in built files"
+          fi
       - name: Create Firebase Service Account Key
         run: echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT_ROMANCE_RETREAT_XSAVLAB }}' > ${{ github.workspace }}/firebase-service-account.json
       - name: Install Firebase CLI

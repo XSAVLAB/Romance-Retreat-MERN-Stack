@@ -53,7 +53,8 @@ export const AdminProvider = ({ children }) => {
     usernameFromEnv: process.env.REACT_APP_ADMIN_USERNAME,
     passwordFromEnv: process.env.REACT_APP_ADMIN_PASSWORD ? '[SET]' : '[NOT SET]',
     finalUsername: adminCredentials.username,
-    finalPassword: adminCredentials.password ? '[SET]' : '[NOT SET]'
+    finalPassword: adminCredentials.password ? '[SET]' : '[NOT SET]',
+    allEnvVars: Object.keys(process.env).filter(key => key.startsWith('REACT_APP_'))
   });
 
   // Test deployment timestamp: 2025-11-05
