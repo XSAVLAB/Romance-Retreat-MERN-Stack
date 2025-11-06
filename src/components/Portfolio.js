@@ -191,12 +191,14 @@ const Portfolio = () => {
                   <img 
                     src={item.image} 
                     alt={item.title}
+                    loading="lazy"
+                    width={400}
+                    height={300}
                     onError={(e) => {
                       // Fallback for broken images
                       e.target.src = '/images/placeholder.jpg';
                       e.target.alt = 'Image not available';
                     }}
-                    loading="lazy"
                   />
                   <div className="portfolio-overlay">
                     <div className="portfolio-details">

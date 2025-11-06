@@ -427,6 +427,9 @@ const AdminDashboard = () => {
                         src={item.imageUrl}
                         alt={`Portfolio ${displayIndex + 1}`}
                         className="portfolio-preview"
+                        loading="lazy"
+                        width={400}
+                        height={300}
                         onError={(e) => {
                           e.target.src = '/images/placeholder.jpg';
                         }}

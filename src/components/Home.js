@@ -9,13 +9,18 @@ import { useAdmin } from '../contexts/AdminContext';
 import { useContactInfo } from '../hooks/useContactInfo';
 
 // Import service images for preview
-import customizedMomentsImg from './images/Services/Customized_Moments.jpg';
-import coupleMassageImg from './images/Services/Couple_Massage.jpg';
-import weddingProposalImg from './images/Services/Wedding_Proposal.jpg';
+import customizedMomentsImgWebp from './images/Services-optimized/Customized_Moments.webp';
+import customizedMomentsImgJpg from './images/Services/Customized_Moments.jpg';
+import coupleMassageImgWebp from './images/Services-optimized/Couple_Massage.webp';
+import coupleMassageImgJpg from './images/Services/Couple_Massage.jpg';
+import weddingProposalImgWebp from './images/Services-optimized/Wedding_Proposal.webp';
+import weddingProposalImgJpg from './images/Services/Wedding_Proposal.jpg';
 
 // Import other service images for services preview section
-import romanticDinnerImg from './images/Services/Romantic_Dinner.jpg';
-import yachtDinnerImg from './images/Services/Yatch_Dinner.jpg';
+import romanticDinnerImgWebp from './images/Services-optimized/Romantic_Dinner.webp';
+import romanticDinnerImgJpg from './images/Services/Romantic_Dinner.jpg';
+import yachtDinnerImgWebp from './images/Services-optimized/Yatch_Dinner.webp';
+import yachtDinnerImgJpg from './images/Services/Yatch_Dinner.jpg';
 
 // Home Component
 const Home = () => {
@@ -91,7 +96,16 @@ const Home = () => {
           <div className="portfolio-grid">
             <div className="portfolio-item">
               <div className="portfolio-image">
-                  <img src={customizedMomentsImg} alt="Customized Romance Moments" loading="lazy" width={400} height={300} />
+          <picture>
+            <source srcSet={customizedMomentsImgWebp} type="image/webp" />
+            <img src={customizedMomentsImgJpg}
+        alt="Customized Romance Moments"
+        loading="lazy"
+        width={400}
+        height={300}
+        srcSet={`${customizedMomentsImgJpg} 400w, ${customizedMomentsImgJpg} 800w`}
+        sizes="(max-width: 600px) 100vw, 400px" />
+          </picture>
                 <div className="portfolio-overlay">
                   <h3>Customized Romance Moments</h3>
                   <p>Personalized Experience • Tailored to Your Love Story</p>
@@ -101,7 +115,17 @@ const Home = () => {
 
             <div className="portfolio-item">
               <div className="portfolio-image">
-                  <img src={coupleMassageImg} alt="Couple Massage & Spa" loading="lazy" width={400} height={300} />
+                  {/* ...existing code... */}
+          <picture>
+            <source srcSet={coupleMassageImgWebp} type="image/webp" />
+            <img src={coupleMassageImgJpg}
+        alt="Couple Massage & Spa"
+        loading="lazy"
+        width={400}
+        height={300}
+        srcSet={`${coupleMassageImgJpg} 400w, ${coupleMassageImgJpg} 800w`}
+        sizes="(max-width: 600px) 100vw, 400px" />
+          </picture>
                 <div className="portfolio-overlay">
                   <h3>Couple Massage & Spa</h3>
                   <p>Relaxation & Wellness • Luxury Spa Experience</p>
@@ -111,7 +135,17 @@ const Home = () => {
 
             <div className="portfolio-item">
               <div className="portfolio-image">
-                  <img src={weddingProposalImg} alt="Wedding Proposal Setup" loading="lazy" width={400} height={300} />
+                  {/* ...existing code... */}
+          <picture>
+            <source srcSet={weddingProposalImgWebp} type="image/webp" />
+            <img src={weddingProposalImgJpg}
+        alt="Wedding Proposal Setup"
+        loading="lazy"
+        width={400}
+        height={300}
+        srcSet={`${weddingProposalImgJpg} 400w, ${weddingProposalImgJpg} 800w`}
+        sizes="(max-width: 600px) 100vw, 400px" />
+          </picture>
                 <div className="portfolio-overlay">
                   <h3>Wedding Proposal Setup</h3>
                   <p>Dream Proposal • Picture Perfect Moment</p>
@@ -141,7 +175,17 @@ const Home = () => {
           <div className="services-preview-grid">
             <div className="service-preview-card">
               <div className="service-preview-image">
-                  <img src={romanticDinnerImg} alt="Romantic Dinners" loading="lazy" width={400} height={300} />
+                  {/* ...existing code... */}
+          <picture>
+            <source srcSet={romanticDinnerImgWebp} type="image/webp" />
+            <img src={romanticDinnerImgJpg}
+        alt="Romantic Dinners"
+        loading="lazy"
+        width={400}
+        height={300}
+        srcSet={`${romanticDinnerImgJpg} 400w, ${romanticDinnerImgJpg} 800w`}
+        sizes="(max-width: 600px) 100vw, 400px" />
+          </picture>
               </div>
               <div className="service-preview-content">
                 <div className="service-preview-text-content">
@@ -156,7 +200,17 @@ const Home = () => {
 
             <div className="service-preview-card">
               <div className="service-preview-image">
-                  <img src={weddingProposalImg} alt="Wedding Proposals" loading="lazy" width={400} height={300} />
+                  {/* ...existing code... */}
+          <picture>
+            <source srcSet={weddingProposalImgWebp} type="image/webp" />
+            <img src={weddingProposalImgJpg}
+        alt="Wedding Proposals"
+        loading="lazy"
+        width={400}
+        height={300}
+        srcSet={`${weddingProposalImgJpg} 400w, ${weddingProposalImgJpg} 800w`}
+        sizes="(max-width: 600px) 100vw, 400px" />
+          </picture>
               </div>
               <div className="service-preview-content">
                 <div className="service-preview-text-content">
@@ -171,7 +225,17 @@ const Home = () => {
 
             <div className="service-preview-card">
               <div className="service-preview-image">
-                  <img src={yachtDinnerImg} alt="Yacht Dinners" loading="lazy" width={400} height={300} />
+                  {/* ...existing code... */}
+          <picture>
+            <source srcSet={yachtDinnerImgWebp} type="image/webp" />
+            <img src={yachtDinnerImgJpg}
+        alt="Yacht Dinners"
+        loading="lazy"
+        width={400}
+        height={300}
+        srcSet={`${yachtDinnerImgJpg} 400w, ${yachtDinnerImgJpg} 800w`}
+        sizes="(max-width: 600px) 100vw, 400px" />
+          </picture>
               </div>
               <div className="service-preview-content">
                 <div className="service-preview-text-content">

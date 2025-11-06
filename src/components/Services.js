@@ -6,15 +6,24 @@ import Footer from './Footer';
 import { usePricing } from '../contexts/PricingContext';
 
 // Import service images
-import romanticDinnerImg from './images/Services/Romantic_Dinner.jpg';
-import weddingProposalImg from './images/Services/Wedding_Proposal.jpg';
-import valentinesDinnerImg from './images/Services/Valentines_Dinner.jpg';
-import birthdayCelebrationsImg from './images/Services/Birthday_Celebrations.jpg';
-import anniversaryCelebrationsImg from './images/Services/Anniversary_Celebrations.jpg';
-import dinnerDateImg from './images/Services/Dinner_Date.png';
-import yachtDinnerImg from './images/Services/Yatch_Dinner.jpg';
-import coupleMassageImg from './images/Services/Couple_Massage.jpg';
-import customizedMomentsImg from './images/Services/Customized_Moments.jpg';
+import romanticDinnerImgWebp from './images/Services-optimized/Romantic_Dinner.webp';
+import romanticDinnerImgJpg from './images/Services/Romantic_Dinner.jpg';
+import weddingProposalImgWebp from './images/Services-optimized/Wedding_Proposal.webp';
+import weddingProposalImgJpg from './images/Services/Wedding_Proposal.jpg';
+import valentinesDinnerImgWebp from './images/Services-optimized/Valentines_Dinner.webp';
+import valentinesDinnerImgJpg from './images/Services/Valentines_Dinner.jpg';
+import birthdayCelebrationsImgWebp from './images/Services-optimized/Birthday_Celebrations.webp';
+import birthdayCelebrationsImgJpg from './images/Services/Birthday_Celebrations.jpg';
+import anniversaryCelebrationsImgWebp from './images/Services-optimized/Anniversary_Celebrations.webp';
+import anniversaryCelebrationsImgJpg from './images/Services/Anniversary_Celebrations.jpg';
+import dinnerDateImgWebp from './images/Services-optimized/Dinner_Date.webp';
+import dinnerDateImgPng from './images/Services/Dinner_Date.png';
+import yachtDinnerImgWebp from './images/Services-optimized/Yatch_Dinner.webp';
+import yachtDinnerImgJpg from './images/Services/Yatch_Dinner.jpg';
+import coupleMassageImgWebp from './images/Services-optimized/Couple_Massage.webp';
+import coupleMassageImgJpg from './images/Services/Couple_Massage.jpg';
+import customizedMomentsImgWebp from './images/Services-optimized/Customized_Moments.webp';
+import customizedMomentsImgJpg from './images/Services/Customized_Moments.jpg';
 
 const Services = () => {
   const { getPrice } = usePricing();
@@ -48,7 +57,16 @@ const Services = () => {
           <div className="services-grid">
             <div className="service-card" onClick={() => handleServiceClick('/services/romantic-dinners')}>
               <div className="service-image">
-                <img src={romanticDinnerImg} alt="Romantic Dinners" loading="lazy" width={400} height={300} />
+                <picture>
+                  <source srcSet={romanticDinnerImgWebp} type="image/webp" />
+                  <img src={romanticDinnerImgJpg}
+           alt="Romantic Dinners"
+           loading="lazy"
+           width={400}
+           height={300}
+           srcSet={`${romanticDinnerImgJpg} 400w, ${romanticDinnerImgJpg} 800w`}
+           sizes="(max-width: 600px) 100vw, 400px" />
+                </picture>
               </div>
               <div className="service-content">
                 <div className="service-text-content">
@@ -63,7 +81,17 @@ const Services = () => {
 
             <div className="service-card" onClick={() => handleServiceClick('/services/wedding-proposals')}>
               <div className="service-image">
-                <img src={weddingProposalImg} alt="Wedding Proposals" loading="lazy" width={400} height={300} />
+                {/* ...existing code... */}
+                <picture>
+                  <source srcSet={weddingProposalImgWebp} type="image/webp" />
+                  <img src={weddingProposalImgJpg}
+           alt="Wedding Proposals"
+           loading="lazy"
+           width={400}
+           height={300}
+           srcSet={`${weddingProposalImgJpg} 400w, ${weddingProposalImgJpg} 800w`}
+           sizes="(max-width: 600px) 100vw, 400px" />
+                </picture>
               </div>
               <div className="service-content">
                 <div className="service-text-content">
@@ -78,7 +106,17 @@ const Services = () => {
 
             <div className="service-card" onClick={() => handleServiceClick('/services/valentines-dinners')}>
               <div className="service-image">
-                <img src={valentinesDinnerImg} alt="Valentine's Dinners" loading="lazy" width={400} height={300} />
+                {/* ...existing code... */}
+                <picture>
+                  <source srcSet={valentinesDinnerImgWebp} type="image/webp" />
+                  <img src={valentinesDinnerImgJpg}
+           alt="Valentine's Dinners"
+           loading="lazy"
+           width={400}
+           height={300}
+           srcSet={`${valentinesDinnerImgJpg} 400w, ${valentinesDinnerImgJpg} 800w`}
+           sizes="(max-width: 600px) 100vw, 400px" />
+                </picture>
               </div>
               <div className="service-content">
                 <div className="service-text-content">
@@ -93,7 +131,17 @@ const Services = () => {
 
             <div className="service-card" onClick={() => handleServiceClick('/services/birthday-celebrations')}>
               <div className="service-image">
-                <img src={birthdayCelebrationsImg} alt="Birthday Celebrations" loading="lazy" width={400} height={300} />
+                {/* ...existing code... */}
+                <picture>
+                  <source srcSet={birthdayCelebrationsImgWebp} type="image/webp" />
+                  <img src={birthdayCelebrationsImgJpg}
+           alt="Birthday Celebrations"
+           loading="lazy"
+           width={400}
+           height={300}
+           srcSet={`${birthdayCelebrationsImgJpg} 400w, ${birthdayCelebrationsImgJpg} 800w`}
+           sizes="(max-width: 600px) 100vw, 400px" />
+                </picture>
               </div>
               <div className="service-content">
                 <div className="service-text-content">
@@ -108,7 +156,17 @@ const Services = () => {
 
             <div className="service-card" onClick={() => handleServiceClick('/services/anniversary-celebrations')}>
               <div className="service-image">
-                <img src={anniversaryCelebrationsImg} alt="Anniversary Celebrations" loading="lazy" width={400} height={300} />
+                {/* ...existing code... */}
+                <picture>
+                  <source srcSet={anniversaryCelebrationsImgWebp} type="image/webp" />
+                  <img src={anniversaryCelebrationsImgJpg}
+           alt="Anniversary Celebrations"
+           loading="lazy"
+           width={400}
+           height={300}
+           srcSet={`${anniversaryCelebrationsImgJpg} 400w, ${anniversaryCelebrationsImgJpg} 800w`}
+           sizes="(max-width: 600px) 100vw, 400px" />
+                </picture>
               </div>
               <div className="service-content">
                 <div className="service-text-content">
@@ -123,7 +181,17 @@ const Services = () => {
 
             <div className="service-card" onClick={() => handleServiceClick('/services/dinner-date-experiences')}>
               <div className="service-image">
-                <img src={dinnerDateImg} alt="Dinner Date Experiences" loading="lazy" width={400} height={300} />
+                {/* ...existing code... */}
+                <picture>
+                  <source srcSet={dinnerDateImgWebp} type="image/webp" />
+                  <img src={dinnerDateImgPng}
+           alt="Dinner Date Experiences"
+           loading="lazy"
+           width={400}
+           height={300}
+           srcSet={`${dinnerDateImgPng} 400w, ${dinnerDateImgPng} 800w`}
+           sizes="(max-width: 600px) 100vw, 400px" />
+                </picture>
               </div>
               <div className="service-content">
                 <div className="service-text-content">
@@ -138,7 +206,17 @@ const Services = () => {
 
             <div className="service-card" onClick={() => handleServiceClick('/services/yacht-dinner')}>
               <div className="service-image">
-                <img src={yachtDinnerImg} alt="Yacht Dinner" loading="lazy" width={400} height={300} />
+                {/* ...existing code... */}
+                <picture>
+                  <source srcSet={yachtDinnerImgWebp} type="image/webp" />
+                  <img src={yachtDinnerImgJpg}
+           alt="Yacht Dinner"
+           loading="lazy"
+           width={400}
+           height={300}
+           srcSet={`${yachtDinnerImgJpg} 400w, ${yachtDinnerImgJpg} 800w`}
+           sizes="(max-width: 600px) 100vw, 400px" />
+                </picture>
               </div>
               <div className="service-content">
                 <div className="service-text-content">
@@ -153,7 +231,17 @@ const Services = () => {
 
             <div className="service-card" onClick={() => handleServiceClick('/services/couple-massage')}>
               <div className="service-image">
-                <img src={coupleMassageImg} alt="Couple Massage & Spa Rituals" loading="lazy" width={400} height={300} />
+                {/* ...existing code... */}
+                <picture>
+                  <source srcSet={coupleMassageImgWebp} type="image/webp" />
+                  <img src={coupleMassageImgJpg}
+           alt="Couple Massage & Spa Rituals"
+           loading="lazy"
+           width={400}
+           height={300}
+           srcSet={`${coupleMassageImgJpg} 400w, ${coupleMassageImgJpg} 800w`}
+           sizes="(max-width: 600px) 100vw, 400px" />
+                </picture>
               </div>
               <div className="service-content">
                 <div className="service-text-content">
@@ -168,7 +256,17 @@ const Services = () => {
 
             <div className="service-card" onClick={() => handleServiceClick('/services/customized-moments')}>
               <div className="service-image">
-                <img src={customizedMomentsImg} alt="Customised Romance Moments" loading="lazy" width={400} height={300} />
+                {/* ...existing code... */}
+                <picture>
+                  <source srcSet={customizedMomentsImgWebp} type="image/webp" />
+                  <img src={customizedMomentsImgJpg}
+           alt="Customised Romance Moments"
+           loading="lazy"
+           width={400}
+           height={300}
+           srcSet={`${customizedMomentsImgJpg} 400w, ${customizedMomentsImgJpg} 800w`}
+           sizes="(max-width: 600px) 100vw, 400px" />
+                </picture>
               </div>
               <div className="service-content">
                 <div className="service-text-content">

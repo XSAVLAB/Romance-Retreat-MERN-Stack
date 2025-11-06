@@ -158,6 +158,9 @@ const Reviews = () => {
                     src={review.profile_photo_url} 
                     alt={review.author_name}
                     className="reviewer-avatar"
+                    loading="lazy"
+                    width={64}
+                    height={64}
                   />
                   <div className="reviewer-details">
                     <h3 className="reviewer-name">{review.author_name}</h3>
