@@ -127,7 +127,7 @@ _Sent via Romance Retreat Website_ 🌹`;
 
     try {
       // Debug contact info (remove in production)
-      // console.log('Contact Info:', contactInfo);
+  // console.log('Contact Info:', contactInfo);
       
       // Generate WhatsApp message
       const message = generateWhatsAppMessage();
@@ -149,9 +149,9 @@ _Sent via Romance Retreat Website_ 🌹`;
       const whatsappURL = `https://wa.me/${adminWhatsApp}?text=${encodedMessage}`;
       
       // Debug logs (remove in production)
-      // console.log('WhatsApp URL:', whatsappURL);
-      // console.log('Admin WhatsApp:', adminWhatsApp);
-      // console.log('Message length:', encodedMessage.length);
+  // console.log('WhatsApp URL:', whatsappURL);
+  // console.log('Admin WhatsApp:', adminWhatsApp);
+  // console.log('Message length:', encodedMessage.length);
       
       // Detect mobile devices
       const isMobile = navigator.userAgent.match(/Mobile|Android|iPhone|iPad/i);
@@ -171,7 +171,7 @@ _Sent via Romance Retreat Website_ 🌹`;
                 alert('✅ Message copied to clipboard!\n\nPlease paste it in WhatsApp chat with +91 7840930140');
               }).catch(() => {
                 alert(`Please copy this message and send it to +91 7840930140:\n\n${rawMessage.substring(0, 300)}...`);
-                console.log('Full message for mobile:', rawMessage);
+                // console.log('Full message for mobile:', rawMessage);
               });
             }
           }, 3000);
@@ -197,7 +197,7 @@ _Sent via Romance Retreat Website_ 🌹`;
                 alert('✅ Message copied to clipboard!\n\nPlease paste it in the WhatsApp Web chat with +91 7840930140');
               }).catch(() => {
                 alert(`Please copy this message and send it to +91 7840930140:\n\n${rawMessage.substring(0, 400)}${rawMessage.length > 400 ? '...[check browser console for full message]' : ''}`);
-                console.log('Full WhatsApp message to copy:', rawMessage);
+                // console.log('Full WhatsApp message to copy:', rawMessage);
               });
             }
           }, 4000);

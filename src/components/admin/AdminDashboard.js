@@ -2,13 +2,12 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAdmin } from '../../contexts/AdminContext';
 import { usePricing } from '../../contexts/PricingContext';
-import AdminLogin from './AdminLogin';
 import './AdminDashboard.css';
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
-  const { isAdminLoggedIn, logoutAdmin, adminData, updateTopBanner, updateContactInfo, addPortfolioImage, removePortfolioImage } = useAdmin();
-  const { prices, updatePrice } = usePricing();
+  const { logoutAdmin, adminData, updateTopBanner, updateContactInfo, addPortfolioImage, removePortfolioImage } = useAdmin();
+  const { prices, updateAllPrices } = usePricing();
   const [activeTab, setActiveTab] = useState('pricing');
   const [topBannerTexts, setTopBannerTexts] = useState(adminData.topBannerTexts || ['', '', '', '']);
   const [contactInfo, setContactInfo] = useState(() => {
@@ -41,6 +40,36 @@ const AdminDashboard = () => {
   const [saveMessage, setSaveMessage] = useState('');
   const [tempPrices, setTempPrices] = useState(prices);
   const [hasUnsavedPrices, setHasUnsavedPrices] = useState(false);
+
+    // Handler for price input changes
+    const handlePriceChange = (serviceKey, value) => {
+      setTempPrices(prev => ({
+        ...prev,
+        [serviceKey]: value
+      }));
+      setHasUnsavedPrices(true);
+    };
+
+    // Handler to update all prices
+    const updatePrices = async () => {
+      try {
+        await updateAllPrices(tempPrices);
+        setSaveMessage('Prices updated successfully!');
+        setHasUnsavedPrices(false);
+      } catch (error) {
+        setSaveMessage('Failed to update prices. Try again');
+      }
+      setTimeout(() => setSaveMessage(''), 3000);
+    };
+
+    // Handler for banner text changes
+    const handleBannerTextChange = (index, value) => {
+      setTopBannerTexts(prev => {
+        const updated = [...prev];
+        updated[index] = value;
+        return updated;
+      });
+    };
 
   // Sync temp prices with actual prices when prices change
   React.useEffect(() => {
@@ -79,48 +108,13 @@ const AdminDashboard = () => {
     navigate('/');
   };
 
-  if (!isAdminLoggedIn) {
-    return <AdminLogin />;
-  }
-
-  const handlePriceChange = (service, newPrice) => {
-    // Handle empty input
-    if (newPrice === '' || newPrice === null || newPrice === undefined) {
-      return;
+  const saveTopBannerTexts = async () => {
+    try {
+      await updateTopBanner(topBannerTexts);
+      setSaveMessage('Updated Successfully');
+    } catch (error) {
+      setSaveMessage('Failed to update. Try again');
     }
-    
-    // Ensure we have a valid number before formatting
-    const numericPrice = parseInt(newPrice);
-    if (isNaN(numericPrice) || numericPrice < 0) {
-      return;
-    }
-    
-    const formattedPrice = numericPrice.toLocaleString('en-IN');
-    setTempPrices(prev => ({
-      ...prev,
-      [service]: formattedPrice
-    }));
-    setHasUnsavedPrices(true);
-  };
-
-  const updatePrices = () => {
-    Object.entries(tempPrices).forEach(([service, price]) => {
-      updatePrice(service, price);
-    });
-    setHasUnsavedPrices(false);
-    setSaveMessage('Prices updated successfully!');
-    setTimeout(() => setSaveMessage(''), 3000);
-  };
-
-  const handleBannerTextChange = (index, value) => {
-    const newTexts = [...topBannerTexts];
-    newTexts[index] = value;
-    setTopBannerTexts(newTexts);
-  };
-
-  const saveTopBannerTexts = () => {
-    updateTopBanner(topBannerTexts);
-    setSaveMessage('Top banner texts updated successfully!');
     setTimeout(() => setSaveMessage(''), 3000);
   };
 
@@ -161,7 +155,7 @@ const AdminDashboard = () => {
     }
   };
 
-  const saveContactInfo = () => {
+  const saveContactInfo = async () => {
     // Only send fields that are not empty to prevent overriding existing data
     const updateData = {};
     
@@ -236,7 +230,7 @@ const AdminDashboard = () => {
             <button
               className={`admin-nav-btn ${activeTab === 'pricing' ? 'active' : ''}`}
               onClick={() => {
-                console.log('Pricing tab clicked');
+                // console.log('Pricing tab clicked');
                 setActiveTab('pricing');
               }}
             >
@@ -245,7 +239,7 @@ const AdminDashboard = () => {
             <button
               className={`admin-nav-btn ${activeTab === 'banners' ? 'active' : ''}`}
               onClick={() => {
-                console.log('Banners tab clicked');
+                // console.log('Banners tab clicked');
                 setActiveTab('banners');
               }}
             >
@@ -254,7 +248,7 @@ const AdminDashboard = () => {
             <button
               className={`admin-nav-btn ${activeTab === 'portfolio' ? 'active' : ''}`}
               onClick={() => {
-                console.log('Portfolio tab clicked');
+                // console.log('Portfolio tab clicked');
                 setActiveTab('portfolio');
               }}
             >
@@ -263,7 +257,7 @@ const AdminDashboard = () => {
             <button
               className={`admin-nav-btn ${activeTab === 'contact' ? 'active' : ''}`}
               onClick={() => {
-                console.log('Contact tab clicked');
+                // console.log('Contact tab clicked');
                 setActiveTab('contact');
               }}
             >

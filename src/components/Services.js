@@ -48,7 +48,7 @@ const Services = () => {
           <div className="services-grid">
             <div className="service-card" onClick={() => handleServiceClick('/services/romantic-dinners')}>
               <div className="service-image">
-                <img src={romanticDinnerImg} alt="Romantic Dinners" />
+                <img src={romanticDinnerImg} alt="Romantic Dinners" loading="lazy" width={400} height={300} />
               </div>
               <div className="service-content">
                 <div className="service-text-content">
@@ -63,7 +63,7 @@ const Services = () => {
 
             <div className="service-card" onClick={() => handleServiceClick('/services/wedding-proposals')}>
               <div className="service-image">
-                <img src={weddingProposalImg} alt="Wedding Proposals" />
+                <img src={weddingProposalImg} alt="Wedding Proposals" loading="lazy" width={400} height={300} />
               </div>
               <div className="service-content">
                 <div className="service-text-content">
@@ -78,7 +78,7 @@ const Services = () => {
 
             <div className="service-card" onClick={() => handleServiceClick('/services/valentines-dinners')}>
               <div className="service-image">
-                <img src={valentinesDinnerImg} alt="Valentine's Dinners" />
+                <img src={valentinesDinnerImg} alt="Valentine's Dinners" loading="lazy" width={400} height={300} />
               </div>
               <div className="service-content">
                 <div className="service-text-content">
@@ -93,7 +93,7 @@ const Services = () => {
 
             <div className="service-card" onClick={() => handleServiceClick('/services/birthday-celebrations')}>
               <div className="service-image">
-                <img src={birthdayCelebrationsImg} alt="Birthday Celebrations" />
+                <img src={birthdayCelebrationsImg} alt="Birthday Celebrations" loading="lazy" width={400} height={300} />
               </div>
               <div className="service-content">
                 <div className="service-text-content">
@@ -108,7 +108,7 @@ const Services = () => {
 
             <div className="service-card" onClick={() => handleServiceClick('/services/anniversary-celebrations')}>
               <div className="service-image">
-                <img src={anniversaryCelebrationsImg} alt="Anniversary Celebrations" />
+                <img src={anniversaryCelebrationsImg} alt="Anniversary Celebrations" loading="lazy" width={400} height={300} />
               </div>
               <div className="service-content">
                 <div className="service-text-content">
@@ -123,7 +123,7 @@ const Services = () => {
 
             <div className="service-card" onClick={() => handleServiceClick('/services/dinner-date-experiences')}>
               <div className="service-image">
-                <img src={dinnerDateImg} alt="Dinner Date Experiences" />
+                <img src={dinnerDateImg} alt="Dinner Date Experiences" loading="lazy" width={400} height={300} />
               </div>
               <div className="service-content">
                 <div className="service-text-content">
@@ -138,7 +138,7 @@ const Services = () => {
 
             <div className="service-card" onClick={() => handleServiceClick('/services/yacht-dinner')}>
               <div className="service-image">
-                <img src={yachtDinnerImg} alt="Yacht Dinner" />
+                <img src={yachtDinnerImg} alt="Yacht Dinner" loading="lazy" width={400} height={300} />
               </div>
               <div className="service-content">
                 <div className="service-text-content">
@@ -153,7 +153,7 @@ const Services = () => {
 
             <div className="service-card" onClick={() => handleServiceClick('/services/couple-massage')}>
               <div className="service-image">
-                <img src={coupleMassageImg} alt="Couple Massage & Spa Rituals" />
+                <img src={coupleMassageImg} alt="Couple Massage & Spa Rituals" loading="lazy" width={400} height={300} />
               </div>
               <div className="service-content">
                 <div className="service-text-content">
@@ -168,7 +168,7 @@ const Services = () => {
 
             <div className="service-card" onClick={() => handleServiceClick('/services/customized-moments')}>
               <div className="service-image">
-                <img src={customizedMomentsImg} alt="Customised Romance Moments" />
+                <img src={customizedMomentsImg} alt="Customised Romance Moments" loading="lazy" width={400} height={300} />
               </div>
               <div className="service-content">
                 <div className="service-text-content">

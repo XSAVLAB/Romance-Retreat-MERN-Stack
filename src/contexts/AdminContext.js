@@ -1,4 +1,6 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
+import { db } from '../firebase';
+import { doc, setDoc, onSnapshot } from 'firebase/firestore';
 
 const AdminContext = createContext();
 
@@ -11,7 +13,7 @@ export const useAdmin = () => {
 };
 
 export const AdminProvider = ({ children }) => {
-  console.log('AdminProvider initialized');
+  // console.log('AdminProvider initialized');
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
   const [adminData, setAdminData] = useState({
     bannerTexts: {
@@ -42,6 +44,55 @@ export const AdminProvider = ({ children }) => {
     ]
   });
 
+  // Load contactInfo from Firestore and listen for real-time updates
+  useEffect(() => {
+    const contactDocRef = doc(db, 'config', 'contactInfo');
+    const unsubscribe = onSnapshot(contactDocRef, (docSnap) => {
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        setAdminData(prev => ({
+          ...prev,
+          contactInfo: data
+        }));
+      }
+    });
+    return () => unsubscribe();
+  }, []);
+
+  // Load portfolioImages from Firestore and listen for real-time updates
+  useEffect(() => {
+    const portfolioDocRef = doc(db, 'config', 'portfolioImages');
+    const unsubscribe = onSnapshot(portfolioDocRef, (docSnap) => {
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        if (data.portfolioImages) {
+          setAdminData(prev => ({
+            ...prev,
+            portfolioImages: data.portfolioImages
+          }));
+        }
+      }
+    });
+    return () => unsubscribe();
+  }, []);
+
+  // Load topBannerTexts from Firestore and listen for real-time updates
+  useEffect(() => {
+    const bannersDocRef = doc(db, 'config', 'banners');
+    const unsubscribe = onSnapshot(bannersDocRef, (docSnap) => {
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        if (data.topBannerTexts) {
+          setAdminData(prev => ({
+            ...prev,
+            topBannerTexts: data.topBannerTexts
+          }));
+        }
+      }
+    });
+    return () => unsubscribe();
+  }, []);
+
   // Admin credentials from environment variables (secure approach)
   const adminCredentials = {
     username: process.env.REACT_APP_ADMIN_USERNAME || 'admin',
@@ -55,14 +106,14 @@ export const AdminProvider = ({ children }) => {
 
   // Check for existing admin session on app load
   useEffect(() => {
-    console.log('AdminContext useEffect triggered');
+  // console.log('AdminContext useEffect triggered');
     
     // Always load saved portfolio images for public display
     const savedAdminData = localStorage.getItem('romanceRetreatAdminData');
     if (savedAdminData) {
       try {
         const parsedData = JSON.parse(savedAdminData);
-        console.log('Loading saved admin data for portfolio:', parsedData);
+  // console.log('Loading saved admin data for portfolio:', parsedData);
         
         // Merge saved data with current defaults to preserve any missing fields
         setAdminData(prevData => ({
@@ -90,7 +141,7 @@ export const AdminProvider = ({ children }) => {
         const now = new Date().getTime();
         // Session expires after 24 hours
         if (sessionData.timestamp && (now - sessionData.timestamp < 24 * 60 * 60 * 1000)) {
-          console.log('Admin session found and valid');
+          // console.log('Admin session found and valid');
           setIsAdminLoggedIn(true);
         } else {
           localStorage.removeItem('romanceRetreatAdminSession');
@@ -136,54 +187,36 @@ export const AdminProvider = ({ children }) => {
     }));
   };
 
-  const updateTopBanner = (newTexts) => {
-    setAdminData(prevData => ({
-      ...prevData,
-      topBannerTexts: newTexts
-    }));
+  // Update topBannerTexts in Firestore
+  const updateTopBanner = async (newTexts) => {
+    const bannersDocRef = doc(db, 'config', 'banners');
+    try {
+      await setDoc(bannersDocRef, { topBannerTexts: newTexts });
+      setAdminData(prevData => ({
+        ...prevData,
+        topBannerTexts: newTexts
+      }));
+  // console.log('Firestore banners update successful:', newTexts);
+    } catch (error) {
+      console.error('Firestore banners update failed:', error);
+      alert('Failed to update banners: ' + error.message);
+    }
   };
 
-  const updateContactInfo = (newContactInfo) => {
-    console.log('Updating contact info with:', newContactInfo);
-    
-    setAdminData(prevData => {
-      // Ensure we have the complete structure before merging
-      const currentContactInfo = prevData.contactInfo || {
-        phone: '+91 7840930140',
-        email: 'mail.romanceretreat@gmail.com',
-        address: 'H.No: 1417, Satyabhama Nivas, Near Naga Cottage, Tembwada, Morjim, Pernem, Goa-403512',
-        whatsapp: '+917840930140',
-        socialMedia: {
-          facebook: 'https://facebook.com/romanceretreat',
-          instagram: 'https://instagram.com/romanceretreat',
-          twitter: 'https://x.com/romanceretreat'
-        }
-      };
-
-      console.log('Current contact info before update:', currentContactInfo);
-
-      // Deep merge ensuring no fields are lost
-      const updatedContactInfo = {
-        phone: newContactInfo.phone !== undefined ? newContactInfo.phone : currentContactInfo.phone,
-        email: newContactInfo.email !== undefined ? newContactInfo.email : currentContactInfo.email,
-        address: newContactInfo.address !== undefined ? newContactInfo.address : currentContactInfo.address,
-        whatsapp: newContactInfo.whatsapp !== undefined ? newContactInfo.whatsapp : currentContactInfo.whatsapp,
-        socialMedia: {
-          facebook: newContactInfo.socialMedia?.facebook !== undefined ? newContactInfo.socialMedia.facebook : currentContactInfo.socialMedia?.facebook || 'https://facebook.com/romanceretreat',
-          instagram: newContactInfo.socialMedia?.instagram !== undefined ? newContactInfo.socialMedia.instagram : currentContactInfo.socialMedia?.instagram || 'https://instagram.com/romanceretreat',
-          twitter: newContactInfo.socialMedia?.twitter !== undefined ? newContactInfo.socialMedia.twitter : currentContactInfo.socialMedia?.twitter || 'https://x.com/romanceretreat'
-        }
-      };
-
-      console.log('Final contact info after update:', updatedContactInfo);
-
-      const result = {
+  // Update contactInfo in Firestore
+  const updateContactInfo = async (newContactInfo) => {
+    const contactDocRef = doc(db, 'config', 'contactInfo');
+    try {
+      await setDoc(contactDocRef, newContactInfo);
+      setAdminData(prevData => ({
         ...prevData,
-        contactInfo: updatedContactInfo
-      };
-
-      return result;
-    });
+        contactInfo: newContactInfo
+      }));
+  // console.log('Firestore contact info update successful:', newContactInfo);
+    } catch (error) {
+      console.error('Firestore contact info update failed:', error);
+      alert('Failed to update contact info: ' + error.message);
+    }
   };
 
   const addPortfolioImage = (imageUrl) => {
@@ -192,18 +225,29 @@ export const AdminProvider = ({ children }) => {
       timestamp: new Date().getTime(),
       id: `img-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
     };
-    
-    setAdminData(prevData => ({
-      ...prevData,
-      portfolioImages: [...prevData.portfolioImages, imageWithTimestamp]
-    }));
+    setAdminData(prevData => {
+      const updatedImages = [...prevData.portfolioImages, imageWithTimestamp];
+      // Update Firestore
+      const portfolioDocRef = doc(db, 'config', 'portfolioImages');
+      setDoc(portfolioDocRef, { portfolioImages: updatedImages });
+      return {
+        ...prevData,
+        portfolioImages: updatedImages
+      };
+    });
   };
 
   const removePortfolioImage = (index) => {
-    setAdminData(prevData => ({
-      ...prevData,
-      portfolioImages: prevData.portfolioImages.filter((_, i) => i !== index)
-    }));
+    setAdminData(prevData => {
+      const updatedImages = prevData.portfolioImages.filter((_, i) => i !== index);
+      // Update Firestore
+      const portfolioDocRef = doc(db, 'config', 'portfolioImages');
+      setDoc(portfolioDocRef, { portfolioImages: updatedImages });
+      return {
+        ...prevData,
+        portfolioImages: updatedImages
+      };
+    });
   };
 
   const reorderPortfolioImages = (fromIndex, toIndex) => {

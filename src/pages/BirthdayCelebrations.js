@@ -6,10 +6,10 @@ import { usePricing } from '../contexts/PricingContext';
 import './ServicePages.css';
 
 // Import images
-import birthdayCelebrationImg from '../components/images/Services/Birthday_Celebrations.jpg';
-import anniversaryCelebrationImg from '../components/images/Services/Anniversary_Celebrations.jpg';
-import customizedMomentsImg from '../components/images/Services/Customized_Moments.jpg';
-import romanticDinnerImg from '../components/images/Services/Romantic_Dinner.jpg';
+import birthdayCelebrationImg from '../components/images/Services-optimized/Birthday_Celebrations.webp';
+import anniversaryCelebrationImg from '../components/images/Services-optimized/Anniversary_Celebrations.webp';
+import customizedMomentsImg from '../components/images/Services-optimized/Customized_Moments.webp';
+import romanticDinnerImg from '../components/images/Services-optimized/Romantic_Dinner.webp';
 
 const BirthdayCelebrations = () => {
   const navigate = useNavigate();
@@ -68,7 +68,7 @@ const BirthdayCelebrations = () => {
         <div className="service-hero-overlay">
           <div className="service-hero-content">
             <h1>Birthday Celebrations</h1>
-            <p>Romantic birthday surprises, partner-focused celebrations</p>
+            <p style={{fontStyle: 'normal'}}>Romantic birthday surprises, partner-focused celebrations</p>
             <div className="service-hero-price" onClick={handleBookNow} style={{cursor: 'pointer'}}>
               Starting From: ₹{getPrice('birthdayCelebrations')}
               <br />
@@ -83,7 +83,7 @@ const BirthdayCelebrations = () => {
         <div className="service-container">
           <div className="service-info">
             <h2>Celebrate Your Love's Special Day</h2>
-            <p className="service-description">
+            <p className="service-description" style={{ fontStyle: 'normal' }}>
               Make your partner's birthday unforgettable with our romantic birthday celebration experiences. 
               Whether it's a surprise party, intimate dinner, or a day filled with their favorite activities, 
               we help you create magical moments that show just how much you care. Our romantic birthday 
@@ -238,7 +238,7 @@ const BirthdayCelebrations = () => {
             {relatedServices.map((service) => (
               <div key={service.id} className="related-service-card" onClick={() => handleServiceClick(service.id)} style={{cursor: 'pointer'}}>
                 <div className="related-service-image">
-                  <img src={service.image} alt={service.title} />
+              <img src={service.image} alt={service.title} loading="lazy" width={400} height={300} />
                 </div>
                 <div className="related-service-content">
                   <h3>{service.title}</h3>

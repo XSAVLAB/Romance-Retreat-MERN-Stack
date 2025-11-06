@@ -91,7 +91,7 @@ const Home = () => {
           <div className="portfolio-grid">
             <div className="portfolio-item">
               <div className="portfolio-image">
-                <img src={customizedMomentsImg} alt="Customized Romance Moments" />
+                  <img src={customizedMomentsImg} alt="Customized Romance Moments" loading="lazy" width={400} height={300} />
                 <div className="portfolio-overlay">
                   <h3>Customized Romance Moments</h3>
                   <p>Personalized Experience • Tailored to Your Love Story</p>
@@ -101,7 +101,7 @@ const Home = () => {
 
             <div className="portfolio-item">
               <div className="portfolio-image">
-                <img src={coupleMassageImg} alt="Couple Massage & Spa" />
+                  <img src={coupleMassageImg} alt="Couple Massage & Spa" loading="lazy" width={400} height={300} />
                 <div className="portfolio-overlay">
                   <h3>Couple Massage & Spa</h3>
                   <p>Relaxation & Wellness • Luxury Spa Experience</p>
@@ -111,7 +111,7 @@ const Home = () => {
 
             <div className="portfolio-item">
               <div className="portfolio-image">
-                <img src={weddingProposalImg} alt="Wedding Proposal Setup" />
+                  <img src={weddingProposalImg} alt="Wedding Proposal Setup" loading="lazy" width={400} height={300} />
                 <div className="portfolio-overlay">
                   <h3>Wedding Proposal Setup</h3>
                   <p>Dream Proposal • Picture Perfect Moment</p>
@@ -141,7 +141,7 @@ const Home = () => {
           <div className="services-preview-grid">
             <div className="service-preview-card">
               <div className="service-preview-image">
-                <img src={romanticDinnerImg} alt="Romantic Dinners" />
+                  <img src={romanticDinnerImg} alt="Romantic Dinners" loading="lazy" width={400} height={300} />
               </div>
               <div className="service-preview-content">
                 <div className="service-preview-text-content">
@@ -156,7 +156,7 @@ const Home = () => {
 
             <div className="service-preview-card">
               <div className="service-preview-image">
-                <img src={weddingProposalImg} alt="Wedding Proposals" />
+                  <img src={weddingProposalImg} alt="Wedding Proposals" loading="lazy" width={400} height={300} />
               </div>
               <div className="service-preview-content">
                 <div className="service-preview-text-content">
@@ -171,7 +171,7 @@ const Home = () => {
 
             <div className="service-preview-card">
               <div className="service-preview-image">
-                <img src={yachtDinnerImg} alt="Yacht Dinners" />
+                  <img src={yachtDinnerImg} alt="Yacht Dinners" loading="lazy" width={400} height={300} />
               </div>
               <div className="service-preview-content">
                 <div className="service-preview-text-content">

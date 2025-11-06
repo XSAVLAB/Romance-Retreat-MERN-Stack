@@ -1,18 +1,20 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { db } from '../firebase';
+import { doc, setDoc, onSnapshot } from 'firebase/firestore';
 
 const PricingContext = createContext();
 
-// Default prices for each service - moved outside component to avoid dependency issues
+// Default prices for each service
 const defaultPrices = {
-  'romanticDinners': '15,000',
-  'weddingProposals': '25,000',
-  'valentinesDinners': '12,000',
-  'birthdayCelebrations': '18,000',
-  'anniversaryCelebrations': '20,000',
-  'dinnerDate': '10,000',
-  'yachtDinner': '35,000',
-  'coupleMassage': '8,000',
-  'customizedMoments': '22,000'
+  romanticDinners: '15,000',
+  weddingProposals: '25,000',
+  valentinesDinners: '12,000',
+  birthdayCelebrations: '18,000',
+  anniversaryCelebrations: '20,000',
+  dinnerDate: '10,000',
+  yachtDinner: '35,000',
+  coupleMassage: '8,000',
+  customizedMoments: '22,000',
 };
 
 export const usePricing = () => {
@@ -25,58 +27,71 @@ export const usePricing = () => {
 
 export const PricingProvider = ({ children }) => {
   const [prices, setPrices] = useState(defaultPrices);
-  const [isInitialized, setIsInitialized] = useState(false);
 
-  // Load prices from localStorage on component mount
+  // Load prices from Firestore and listen for real-time updates
   useEffect(() => {
-    const savedPrices = localStorage.getItem('romanceRetreatPrices');
-    console.log('Loading prices from localStorage:', savedPrices);
-    if (savedPrices) {
-      try {
-        const parsedPrices = JSON.parse(savedPrices);
-        console.log('Parsed prices:', parsedPrices);
-        setPrices({ ...defaultPrices, ...parsedPrices });
-      } catch (error) {
-        console.error('Error parsing saved prices:', error);
+    const pricesDocRef = doc(db, 'config', 'prices');
+    const unsubscribe = onSnapshot(pricesDocRef, (docSnap) => {
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        setPrices({ ...defaultPrices, ...data });
+      } else {
         setPrices(defaultPrices);
       }
-    } else {
-      console.log('No saved prices found, using defaults');
-    }
-    setIsInitialized(true);
+    });
+    return () => unsubscribe();
   }, []);
 
-  // Save prices to localStorage whenever prices change (but not on initial load)
-  useEffect(() => {
-    if (isInitialized) {
-      console.log('Saving prices to localStorage:', prices);
-      localStorage.setItem('romanceRetreatPrices', JSON.stringify(prices));
+  // Update price in Firestore with error handling
+  const updatePrice = async (serviceKey, newPrice) => {
+    const pricesDocRef = doc(db, 'config', 'prices');
+    const updated = {
+      ...prices,
+      [serviceKey]: newPrice,
+    };
+    try {
+      await setDoc(pricesDocRef, updated);
+  // console.log('Firestore price update successful:', updated);
+      setPrices(updated); // local update for instant feedback
+    } catch (error) {
+      console.error('Firestore price update failed:', error);
+      alert('Failed to update price: ' + error.message);
     }
-  }, [prices, isInitialized]);
+  };
 
-  const updatePrice = (serviceKey, newPrice) => {
-    console.log(`PricingContext: Updating ${serviceKey} to ${newPrice}`);
-    setPrices(prev => {
-      const updated = {
-        ...prev,
-        [serviceKey]: newPrice
-      };
-      console.log('Updated prices object:', updated);
-      return updated;
-    });
+  // Update all prices in Firestore at once
+  const updateAllPrices = async (newPrices) => {
+    const pricesDocRef = doc(db, 'config', 'prices');
+    try {
+      await setDoc(pricesDocRef, newPrices);
+  // console.log('Firestore all prices update successful:', newPrices);
+      setPrices(newPrices);
+    } catch (error) {
+      console.error('Firestore all prices update failed:', error);
+      alert('Failed to update all prices: ' + error.message);
+    }
   };
 
   const getPrice = (serviceKey) => {
     return prices[serviceKey] || '0';
   };
 
-  const resetPrices = () => {
-    setPrices(defaultPrices);
+  const resetPrices = async () => {
+    const pricesDocRef = doc(db, 'config', 'prices');
+    try {
+      await setDoc(pricesDocRef, defaultPrices);
+      setPrices(defaultPrices);
+  // console.log('Firestore prices reset to defaults');
+    } catch (error) {
+      console.error('Firestore price reset failed:', error);
+      alert('Failed to reset prices: ' + error.message);
+    }
   };
 
   const value = {
     prices,
     updatePrice,
+    updateAllPrices,
     getPrice,
     resetPrices,
     serviceKeys: Object.keys(defaultPrices)

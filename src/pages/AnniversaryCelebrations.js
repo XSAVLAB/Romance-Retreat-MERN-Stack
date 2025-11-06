@@ -6,10 +6,10 @@ import { usePricing } from '../contexts/PricingContext';
 import './ServicePages.css';
 
 // Import images
-import anniversaryCelebrationImg from '../components/images/Services/Anniversary_Celebrations.jpg';
-import romanticDinnerImg from '../components/images/Services/Romantic_Dinner.jpg';
-import customizedMomentsImg from '../components/images/Services/Customized_Moments.jpg';
-import valentinesDinnerImg from '../components/images/Services/Valentines_Dinner.jpg';
+import anniversaryCelebrationImg from '../components/images/Services-optimized/Anniversary_Celebrations.webp';
+import romanticDinnerImg from '../components/images/Services-optimized/Romantic_Dinner.webp';
+import customizedMomentsImg from '../components/images/Services-optimized/Customized_Moments.webp';
+import valentinesDinnerImg from '../components/images/Services-optimized/Valentines_Dinner.webp';
 
 const AnniversaryCelebrations = () => {
   const navigate = useNavigate();
@@ -68,7 +68,7 @@ const AnniversaryCelebrations = () => {
         <div className="service-hero-overlay">
           <div className="service-hero-content">
             <h1>Anniversary Celebrations</h1>
-            <p>Milestone moments, memory recreations, milestone romance</p>
+            <p style={{fontStyle: 'normal'}}>Milestone moments, memory recreations, milestone romance</p>
             <div className="service-hero-price" onClick={handleBookNow} style={{cursor: 'pointer'}}>
               Starting From: ₹{getPrice('anniversaryCelebrations')}
               <br />
@@ -83,12 +83,12 @@ const AnniversaryCelebrations = () => {
         <div className="service-container">
           <div className="service-info">
             <h2>Celebrate Your Love Story's Milestones</h2>
-            <p className="service-description">
-              Every anniversary marks another chapter in your beautiful love story. Whether it's your first year 
-              together or your golden anniversary, we create celebrations that honor your journey and rekindle 
-              the magic of your love. From recreating your first date to crafting new memories, our anniversary 
-              experiences are designed to celebrate the unique bond you share and the years of love you've built together.
-            </p>
+              <p className="service-description" style={{ fontStyle: 'normal' }}>
+                Every anniversary marks another chapter in your beautiful love story. Whether it's your first year 
+                together or your golden anniversary, we create celebrations that honor your journey and rekindle 
+                the magic of your love. From recreating your first date to crafting new memories, our anniversary 
+                experiences are designed to celebrate the unique bond you share and the years of love you've built together.
+              </p>
 
             <div className="service-features">
               <h3>Customize Your Experience With:</h3>
@@ -215,7 +215,7 @@ const AnniversaryCelebrations = () => {
             {relatedServices.map((service) => (
               <div key={service.id} className="related-service-card" onClick={() => handleServiceClick(service.id)} style={{cursor: 'pointer'}}>
                 <div className="related-service-image">
-                  <img src={service.image} alt={service.title} />
+              <img src={service.image} alt={service.title} loading="lazy" width={400} height={300} />
                 </div>
                 <div className="related-service-content">
                   <h3>{service.title}</h3>

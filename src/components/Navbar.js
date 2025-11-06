@@ -106,7 +106,7 @@ const Navbar = () => {
         {/* Logo Section */}
         <div className="navbar-logo">
           <Link to="/" className="logo-link" onClick={closeMenu}>
-            <img src={logo} alt="Romance Retreat" className="logo-image" />
+            <img src={logo} alt="Romance Retreat" className="logo-image" loading="lazy" width={120} height={40} />
           </Link>
         </div>
 

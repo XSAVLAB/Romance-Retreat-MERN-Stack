@@ -6,10 +6,10 @@ import { usePricing } from '../contexts/PricingContext';
 import './ServicePages.css';
 
 // Import images
-import weddingProposalImg from '../components/images/Services/Wedding_Proposal.jpg';
-import romanticDinnerImg from '../components/images/Services/Romantic_Dinner.jpg';
-import anniversaryCelebrationsImg from '../components/images/Services/Anniversary_Celebrations.jpg';
-import customizedMomentsImg from '../components/images/Services/Customized_Moments.jpg';
+import weddingProposalImg from '../components/images/Services-optimized/Wedding_Proposal.webp';
+import romanticDinnerImg from '../components/images/Services-optimized/Romantic_Dinner.webp';
+import anniversaryCelebrationsImg from '../components/images/Services-optimized/Anniversary_Celebrations.webp';
+import customizedMomentsImg from '../components/images/Services-optimized/Customized_Moments.webp';
 
 const WeddingProposals = () => {
   const navigate = useNavigate();
@@ -68,7 +68,7 @@ const WeddingProposals = () => {
         <div className="service-hero-overlay">
           <div className="service-hero-content">
             <h1>Wedding Proposals</h1>
-            <p>Thoughtfully designed settings, surprise moments, professional coordination</p>
+            <p style={{fontStyle: 'normal'}}>Thoughtfully designed settings, surprise moments, professional coordination</p>
             <div className="service-hero-price" onClick={handleBookNow} style={{cursor: 'pointer'}}>
               Starting From: ₹{getPrice('weddingProposals')}
               <br />
@@ -83,7 +83,7 @@ const WeddingProposals = () => {
         <div className="service-container">
           <div className="service-info">
             <h2>Make Your Proposal Perfect</h2>
-            <p className="service-description">
+            <p className="service-description" style={{ fontStyle: 'normal' }}>
               Your proposal is one of the most important moments of your life. Let us help you create 
               a magical, unforgettable experience that perfectly captures your love story. From intimate 
               beachside moments to grand gestures, we'll coordinate every detail to ensure your 
@@ -96,11 +96,6 @@ const WeddingProposals = () => {
                 <li>💍 Custom proposal setup and decoration</li>
                 <li>🌹 Rose petal pathways and romantic arrangements</li>
                 <li>✨ Fairy lights and ambient lighting design</li>
-                <li>📸 Hidden photographer to capture the moment</li>
-                <li>🎵 Personalized music and sound system</li>
-                <li>🥂 Celebration champagne and refreshments</li>
-                <li>🎁 Surprise elements and personalized touches</li>
-                <li>🗓️ Complete planning and coordination service</li>
               </ul>
             </div>
 
@@ -171,7 +166,7 @@ const WeddingProposals = () => {
             {relatedServices.map((service) => (
               <div key={service.id} className="related-service-card" onClick={() => handleServiceClick(service.id)} style={{cursor: 'pointer'}}>
                 <div className="related-service-image">
-                  <img src={service.image} alt={service.title} />
+              <img src={service.image} alt={service.title} loading="lazy" width={400} height={300} />
                 </div>
                 <div className="related-service-content">
                   <h3>{service.title}</h3>

@@ -19,7 +19,7 @@ const Footer = () => {
           {/* Company Info Section */}
           <div className="footer-section company-info">
             <div className="footer-logo">
-              <img src={`${process.env.PUBLIC_URL}/Red_Logo.png`} alt="Romance Retreat" className="footer-logo-img" />
+                      <img src={`${process.env.PUBLIC_URL}/Red_Logo.png`} alt="Romance Retreat" className="footer-logo-img" loading="lazy" width={120} height={120} />
             </div>
             <p className="company-description">
               Creating unforgettable romantic experiences in the heart of Goa. 
@@ -27,16 +27,16 @@ const Footer = () => {
             </p>
             <div className="social-links">
               <a href={contactInfo.socialMedia.facebook} className="social-link" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
-                <img src={`${process.env.PUBLIC_URL}/facebook-logo.svg`} alt="Facebook" className="social-icon-img" />
+                <img src={`${process.env.PUBLIC_URL}/facebook-logo.svg`} alt="Facebook" className="social-icon-img" loading="lazy" width={32} height={32} />
               </a>
               <a href={contactInfo.socialMedia.instagram} className="social-link" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
-                <img src={`${process.env.PUBLIC_URL}/instagram-logo.svg`} alt="Instagram" className="social-icon-img" />
+                <img src={`${process.env.PUBLIC_URL}/instagram-logo.svg`} alt="Instagram" className="social-icon-img" loading="lazy" width={32} height={32} />
               </a>
               <a href={contactInfo.socialMedia.twitter} className="social-link" aria-label="Twitter" target="_blank" rel="noopener noreferrer">
-                <img src={`${process.env.PUBLIC_URL}/x-logo.svg`} alt="X (Twitter)" className="social-icon-img" />
+                <img src={`${process.env.PUBLIC_URL}/x-logo.svg`} alt="X (Twitter)" className="social-icon-img" loading="lazy" width={32} height={32} />
               </a>
               <a href={`https://wa.me/${contactInfo.whatsapp.replace(/[^0-9]/g, '')}`} className="social-link" aria-label="WhatsApp" target="_blank" rel="noopener noreferrer">
-                <img src={`${process.env.PUBLIC_URL}/whatsapp_logo.svg`} alt="WhatsApp" className="social-icon-img" />
+                <img src={`${process.env.PUBLIC_URL}/whatsapp_logo.svg`} alt="WhatsApp" className="social-icon-img" loading="lazy" width={32} height={32} />
               </a>
             </div>
           </div>

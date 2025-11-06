@@ -6,10 +6,10 @@ import { usePricing } from '../contexts/PricingContext';
 import './ServicePages.css';
 
 // Import images
-import coupleMassageImg from '../components/images/Services/Couple_Massage.jpg';
-import customizedMomentsImg from '../components/images/Services/Customized_Moments.jpg';
-import anniversaryCelebrationsImg from '../components/images/Services/Anniversary_Celebrations.jpg';
-import birthdayCelebrationsImg from '../components/images/Services/Birthday_Celebrations.jpg';
+import coupleMassageImg from '../components/images/Services-optimized/Couple_Massage.webp';
+import customizedMomentsImg from '../components/images/Services-optimized/Customized_Moments.webp';
+import anniversaryCelebrationsImg from '../components/images/Services-optimized/Anniversary_Celebrations.webp';
+import birthdayCelebrationsImg from '../components/images/Services-optimized/Birthday_Celebrations.webp';
 
 const CoupleMassage = () => {
   const navigate = useNavigate();
@@ -68,7 +68,7 @@ const CoupleMassage = () => {
         <div className="service-hero-overlay">
           <div className="service-hero-content">
             <h1>Couple Massage & Spa Rituals</h1>
-            <p>Reconnect, relax, rejuvenate — side by side</p>
+            <p style={{fontStyle: 'normal'}}>Reconnect, relax, rejuvenate — side by side</p>
             <div className="service-hero-price" onClick={handleBookNow} style={{cursor: 'pointer'}}>
               Starting From: ₹{getPrice('coupleMassage')}
               <br />
@@ -83,11 +83,8 @@ const CoupleMassage = () => {
         <div className="service-container">
           <div className="service-info">
             <h2>Reconnect in Serene Harmony</h2>
-            <p className="service-description">
-              Escape the stresses of daily life and reconnect with your partner in our luxurious 
-              couple's spa sanctuary. Experience side-by-side relaxation with therapeutic massages, 
-              rejuvenating treatments, and peaceful moments together. Our spa rituals are designed 
-              to enhance your bond while providing complete physical and mental rejuvenation.
+            <p className="service-description" style={{ fontStyle: 'normal' }}>
+            Escape the stresses of daily life and reconnect with your partner in our luxurious couple's spa sanctuary. Experience side-by-side relaxation with therapeutic massages, rejuvenating treatments, and peaceful moments together. Our spa rituals are designed to enhance your bond while providing complete physical and mental rejuvenation.
             </p>
 
             <div className="service-features">
@@ -193,7 +190,7 @@ const CoupleMassage = () => {
             {relatedServices.map((service) => (
               <div key={service.id} className="related-service-card" onClick={() => handleServiceClick(service.id)} style={{cursor: 'pointer'}}>
                 <div className="related-service-image">
-                  <img src={service.image} alt={service.title} />
+              <img src={service.image} alt={service.title} loading="lazy" width={400} height={300} />
                 </div>
                 <div className="related-service-content">
                   <h3>{service.title}</h3>

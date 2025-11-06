@@ -6,10 +6,10 @@ import { usePricing } from '../contexts/PricingContext';
 import './ServicePages.css';
 
 // Import images
-import valentinesDinnerImg from '../components/images/Services/Valentines_Dinner.jpg';
-import romanticDinnerImg from '../components/images/Services/Romantic_Dinner.jpg';
-import dinnerDateImg from '../components/images/Services/Dinner_Date.png';
-import customizedMomentsImg from '../components/images/Services/Customized_Moments.jpg';
+import valentinesDinnerImg from '../components/images/Services-optimized/Valentines_Dinner.webp';
+import romanticDinnerImg from '../components/images/Services-optimized/Romantic_Dinner.webp';
+import dinnerDateImg from '../components/images/Services-optimized/Dinner_Date.webp';
+import customizedMomentsImg from '../components/images/Services-optimized/Customized_Moments.webp';
 
 const ValentinesDinners = () => {
   const navigate = useNavigate();
@@ -68,7 +68,7 @@ const ValentinesDinners = () => {
         <div className="service-hero-overlay">
           <div className="service-hero-content">
             <h1>Valentine's Dinners</h1>
-            <p>Seasonal specials, curated menus, love-filled décor</p>
+            <p style={{fontStyle: 'normal'}}>Seasonal specials, curated menus, love-filled décor</p>
             <div className="service-hero-price" onClick={handleBookNow} style={{cursor: 'pointer'}}>
               Starting From: ₹{getPrice('valentinesDinners')}
               <br />
@@ -83,7 +83,7 @@ const ValentinesDinners = () => {
         <div className="service-container">
           <div className="service-info">
             <h2>Celebrate Love in the Most Romantic Way</h2>
-            <p className="service-description">
+            <p className="service-description" style={{ fontStyle: 'normal' }}>
               Make this Valentine's Day unforgettable with our specially curated romantic dinner experiences. 
               From intimate beachside tables to elegant rooftop settings, we create the perfect atmosphere 
               for celebrating your love. Our seasonal Valentine's packages include special menus, 
@@ -193,7 +193,7 @@ const ValentinesDinners = () => {
             {relatedServices.map((service) => (
               <div key={service.id} className="related-service-card" onClick={() => handleServiceClick(service.id)} style={{cursor: 'pointer'}}>
                 <div className="related-service-image">
-                  <img src={service.image} alt={service.title} />
+              <img src={service.image} alt={service.title} loading="lazy" width={400} height={300} />
                 </div>
                 <div className="related-service-content">
                   <h3>{service.title}</h3>

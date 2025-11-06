@@ -6,10 +6,10 @@ import { usePricing } from '../contexts/PricingContext';
 import './ServicePages.css';
 
 // Import images
-import dinnerDateImg from '../components/images/Services/Dinner_Date.png';
-import romanticDinnerImg from '../components/images/Services/Romantic_Dinner.jpg';
-import yachtDinnerImg from '../components/images/Services/Yatch_Dinner.jpg';
-import valentinesDinnerImg from '../components/images/Services/Valentines_Dinner.jpg';
+import dinnerDateImg from '../components/images/Services-optimized/Dinner_Date.webp';
+import romanticDinnerImg from '../components/images/Services-optimized/Romantic_Dinner.webp';
+import yachtDinnerImg from '../components/images/Services-optimized/Yatch_Dinner.webp';
+import valentinesDinnerImg from '../components/images/Services-optimized/Valentines_Dinner.webp';
 
 const DinnerDateExperiences = () => {
   const navigate = useNavigate();
@@ -68,7 +68,7 @@ const DinnerDateExperiences = () => {
         <div className="service-hero-overlay">
           <div className="service-hero-content">
             <h1>Dinner Date Experiences</h1>
-            <p>Just the two of you, in unique locations — on the beach, in a garden, or on a private yacht</p>
+            <p style={{fontStyle: 'normal'}}>Just the two of you, in unique locations — on the beach, in a garden, or on a private yacht</p>
             <div className="service-hero-price" onClick={handleBookNow} style={{cursor: 'pointer'}}>
               Starting From: ₹{getPrice('dinnerDate')}
               <br />
@@ -83,7 +83,7 @@ const DinnerDateExperiences = () => {
         <div className="service-container">
           <div className="service-info">
             <h2>Intimate Dinner Dates in Extraordinary Settings</h2>
-            <p className="service-description">
+            <p className="service-description" style={{ fontStyle: 'normal' }}>
               Escape the ordinary and immerse yourselves in intimate dinner date experiences designed just for two. 
               Whether you're celebrating a special occasion or simply want to reconnect, our dinner date experiences 
               offer the perfect blend of privacy, romance, and culinary excellence. From secluded beach dinners 
@@ -237,7 +237,7 @@ const DinnerDateExperiences = () => {
             {relatedServices.map((service) => (
               <div key={service.id} className="related-service-card" onClick={() => handleServiceClick(service.id)} style={{cursor: 'pointer'}}>
                 <div className="related-service-image">
-                  <img src={service.image} alt={service.title} />
+              <img src={service.image} alt={service.title} loading="lazy" width={400} height={300} />
                 </div>
                 <div className="related-service-content">
                   <h3>{service.title}</h3>

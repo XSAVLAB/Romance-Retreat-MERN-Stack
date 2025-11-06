@@ -6,10 +6,10 @@ import { usePricing } from '../contexts/PricingContext';
 import './ServicePages.css';
 
 // Import images
-import yachtDinnerImg from '../components/images/Services/Yatch_Dinner.jpg';
-import romanticDinnerImg from '../components/images/Services/Romantic_Dinner.jpg';
-import dinnerDateImg from '../components/images/Services/Dinner_Date.png';
-import anniversaryCelebrationsImg from '../components/images/Services/Anniversary_Celebrations.jpg';
+import yachtDinnerImg from '../components/images/Services-optimized/Yatch_Dinner.webp';
+import romanticDinnerImg from '../components/images/Services-optimized/Romantic_Dinner.webp';
+import dinnerDateImg from '../components/images/Services-optimized/Dinner_Date.webp';
+import anniversaryCelebrationsImg from '../components/images/Services-optimized/Anniversary_Celebrations.webp';
 
 const YachtDinner = () => {
   const navigate = useNavigate();
@@ -68,7 +68,7 @@ const YachtDinner = () => {
         <div className="service-hero-overlay">
           <div className="service-hero-content">
             <h1>Yacht Dinner</h1>
-            <p>Cruise along the coastline, dine under the stars</p>
+            <p style={{fontStyle: 'normal'}}>Cruise along the coastline, dine under the stars</p>
             <div className="service-hero-price" onClick={handleBookNow} style={{cursor: 'pointer'}}>
               Starting From: ₹{getPrice('yachtDinner')}
               <br />
@@ -83,9 +83,8 @@ const YachtDinner = () => {
         <div className="service-container">
           <div className="service-info">
             <h2>Luxury Meets Intimacy on the Open Waters</h2>
-            <p className="service-description">
-              Escape to the serene beauty of the ocean with our exclusive yacht dinner experiences. 
-              Sail into romance as you enjoy gourmet cuisine while watching the sun melt into the sea, 
+              <p className="service-description" style={{ fontStyle: 'normal' }}>
+                Escape to the serene beauty of the ocean with our exclusive yacht dinner experiences. Sail into romance as you enjoy gourmet cuisine while watching the sun melt into the sea, 
               followed by an intimate dinner under a canopy of stars. This is luxury dining redefined 
               with the gentle sway of the ocean and breathtaking panoramic views.
             </p>
@@ -193,7 +192,7 @@ const YachtDinner = () => {
             {relatedServices.map((service) => (
               <div key={service.id} className="related-service-card" onClick={() => handleServiceClick(service.id)} style={{cursor: 'pointer'}}>
                 <div className="related-service-image">
-                  <img src={service.image} alt={service.title} />
+              <img src={service.image} alt={service.title} loading="lazy" width={400} height={300} />
                 </div>
                 <div className="related-service-content">
                   <h3>{service.title}</h3>

@@ -6,10 +6,10 @@ import { usePricing } from '../contexts/PricingContext';
 import './ServicePages.css';
 
 // Import images
-import customizedMomentsImg from '../components/images/Services/Customized_Moments.jpg';
-import weddingProposalImg from '../components/images/Services/Wedding_Proposal.jpg';
-import anniversaryCelebrationImg from '../components/images/Services/Anniversary_Celebrations.jpg';
-import birthdayCelebrationImg from '../components/images/Services/Birthday_Celebrations.jpg';
+import customizedMomentsImg from '../components/images/Services-optimized/Customized_Moments.webp';
+import weddingProposalImg from '../components/images/Services-optimized/Wedding_Proposal.webp';
+import anniversaryCelebrationImg from '../components/images/Services-optimized/Anniversary_Celebrations.webp';
+import birthdayCelebrationImg from '../components/images/Services-optimized/Birthday_Celebrations.webp';
 
 const CustomizedMoments = () => {
   const navigate = useNavigate();
@@ -68,7 +68,7 @@ const CustomizedMoments = () => {
         <div className="service-hero-overlay">
           <div className="service-hero-content">
             <h1>Customised Romance Moments</h1>
-            <p>Tell us your dream, and we'll craft a bespoke experience that's uniquely yours</p>
+            <p style={{fontStyle: 'normal'}}>Tell us your dream, and we'll craft a bespoke experience that's uniquely yours</p>
             <div className="service-hero-price" onClick={handleBookNow} style={{cursor: 'pointer'}}>
               Starting From: ₹{getPrice('customizedMoments')}
               <br />
@@ -83,7 +83,7 @@ const CustomizedMoments = () => {
         <div className="service-container">
           <div className="service-info">
             <h2>Your Love Story, Our Expertise</h2>
-            <p className="service-description">
+            <p className="service-description" style={{ fontStyle: 'normal' }}>
               Every love story is unique, and your romantic moments should be too. Our customized romance experiences 
               are designed entirely around your vision, preferences, and dreams. Whether you have a specific fantasy 
               in mind or need help brainstorming the perfect romantic gesture, we work closely with you to create 
@@ -259,7 +259,7 @@ const CustomizedMoments = () => {
             {relatedServices.map((service) => (
               <div key={service.id} className="related-service-card" onClick={() => handleServiceClick(service.id)} style={{cursor: 'pointer'}}>
                 <div className="related-service-image">
-                  <img src={service.image} alt={service.title} />
+              <img src={service.image} alt={service.title} loading="lazy" width={400} height={300} />
                 </div>
                 <div className="related-service-content">
                   <h3>{service.title}</h3>
