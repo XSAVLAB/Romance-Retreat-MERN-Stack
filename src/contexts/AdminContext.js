@@ -106,16 +106,11 @@ export const AdminProvider = ({ children }) => {
 
   // Check for existing admin session on app load
   useEffect(() => {
-  // console.log('AdminContext useEffect triggered');
-    
     // Always load saved portfolio images for public display
     const savedAdminData = localStorage.getItem('romanceRetreatAdminData');
     if (savedAdminData) {
       try {
         const parsedData = JSON.parse(savedAdminData);
-  // console.log('Loading saved admin data for portfolio:', parsedData);
-        
-        // Merge saved data with current defaults to preserve any missing fields
         setAdminData(prevData => ({
           ...prevData,
           ...parsedData,
@@ -132,8 +127,9 @@ export const AdminProvider = ({ children }) => {
         console.error('Error parsing saved admin data:', error);
       }
     }
-    
-    // Check for admin session
+
+    // Robust session check
+    let isSessionValid = false;
     const adminSession = localStorage.getItem('romanceRetreatAdminSession');
     if (adminSession) {
       try {
@@ -141,8 +137,7 @@ export const AdminProvider = ({ children }) => {
         const now = new Date().getTime();
         // Session expires after 24 hours
         if (sessionData.timestamp && (now - sessionData.timestamp < 24 * 60 * 60 * 1000)) {
-          // console.log('Admin session found and valid');
-          setIsAdminLoggedIn(true);
+          isSessionValid = true;
         } else {
           localStorage.removeItem('romanceRetreatAdminSession');
         }
@@ -151,6 +146,8 @@ export const AdminProvider = ({ children }) => {
         localStorage.removeItem('romanceRetreatAdminSession');
       }
     }
+    setIsAdminLoggedIn(isSessionValid);
+    console.log('AdminContext: isSessionValid =', isSessionValid);
   }, []);
 
   // Save admin data to localStorage whenever it changes
@@ -175,9 +172,16 @@ export const AdminProvider = ({ children }) => {
   };
 
   const logoutAdmin = () => {
-    setIsAdminLoggedIn(false);
-    localStorage.removeItem('romanceRetreatAdminSession');
-    localStorage.removeItem('romanceRetreatAdminData');
+  setIsAdminLoggedIn(false);
+  localStorage.removeItem('romanceRetreatAdminSession');
+  localStorage.removeItem('romanceRetreatAdminData');
+  console.log('AdminContext: logoutAdmin called, session/data removed');
+  window.location.href = '/'; // Force reload to home page and reset context
+    // Always ensure isAdminLoggedIn is false if no valid session
+    if (!localStorage.getItem('romanceRetreatAdminSession')) {
+      setIsAdminLoggedIn(false);
+      console.log('AdminContext: No valid session, isAdminLoggedIn set to false');
+    }
   };
 
   const updateBannerTexts = (newTexts) => {

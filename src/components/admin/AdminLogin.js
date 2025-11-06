@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAdmin } from '../../contexts/AdminContext';
 import './AdminLogin.css';
 
@@ -7,6 +8,7 @@ const AdminLogin = () => {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { loginAdmin } = useAdmin();
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -31,6 +33,8 @@ const AdminLogin = () => {
       const result = loginAdmin(credentials.username, credentials.password);
       if (!result.success) {
         setError(result.message || 'Login failed');
+      } else {
+        navigate('/admin'); // Redirect to dashboard on success
       }
       setIsLoading(false);
     }, 1000);

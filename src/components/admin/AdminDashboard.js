@@ -1,12 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAdmin } from '../../contexts/AdminContext';
 import { usePricing } from '../../contexts/PricingContext';
 import './AdminDashboard.css';
 
 const AdminDashboard = () => {
+  const { isAdminLoggedIn, logoutAdmin, adminData, updateTopBanner, updateContactInfo, addPortfolioImage, removePortfolioImage } = useAdmin();
   const navigate = useNavigate();
-  const { logoutAdmin, adminData, updateTopBanner, updateContactInfo, addPortfolioImage, removePortfolioImage } = useAdmin();
+
+  useEffect(() => {
+    if (!isAdminLoggedIn) {
+      navigate('/admin-login'); // Redirect to login if not logged in
+    }
+  }, [isAdminLoggedIn, navigate]);
   const { prices, updateAllPrices } = usePricing();
   const [activeTab, setActiveTab] = useState('pricing');
   const [topBannerTexts, setTopBannerTexts] = useState(adminData.topBannerTexts || ['', '', '', '']);
@@ -104,8 +110,7 @@ const AdminDashboard = () => {
   }, [adminData.contactInfo]);
 
   const handleLogout = () => {
-    logoutAdmin();
-    navigate('/');
+  logoutAdmin(); // This now reloads the page and resets context
   };
 
   const saveTopBannerTexts = async () => {

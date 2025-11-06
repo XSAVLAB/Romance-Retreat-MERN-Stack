@@ -26,6 +26,7 @@ function App() {
   const DinnerDateExperiences = lazy(() => import('./pages/DinnerDateExperiences'));
   const CustomizedMoments = lazy(() => import('./pages/CustomizedMoments'));
 
+  const AdminLogin = lazy(() => import('./components/admin/AdminLogin'));
   return (
     <AdminProvider>
       <PricingProvider>
@@ -51,6 +52,7 @@ function App() {
                 <Route path="/services/dinner-date-experiences" element={<DinnerDateExperiences />} />
                 <Route path="/services/customized-moments" element={<CustomizedMoments />} />
                 <Route path="/admin" element={<AdminDashboard />} />
+                <Route path="/admin-login" element={<AdminLogin />} />
               </Routes>
             </Suspense>
           </div>
