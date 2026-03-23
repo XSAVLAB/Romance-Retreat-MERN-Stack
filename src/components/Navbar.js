@@ -109,7 +109,7 @@ const Navbar = () => {
           </div>
 
           {/* ✅ FIXED: Added missing UL */}
-          <ul className="navbar-menu">
+          <ul className={`navbar-menu ${isMenuOpen ? 'active' : ''}`}>
             <li className="navbar-item">
               <Link 
                 to="/about" 
