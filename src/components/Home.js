@@ -173,19 +173,18 @@ const Home = () => {
           </header>
           
           <div className="services-preview-grid">
-            <div className="service-preview-card">
+            <div className="service-preview-card" onClick={() => navigate('/services/romantic-dinners')} style={{ cursor: 'pointer' }}>
               <div className="service-preview-image">
-                  {/* ...existing code... */}
-          <picture>
-            <source srcSet={romanticDinnerImgWebp} type="image/webp" />
-            <img src={romanticDinnerImgJpg}
-        alt="Romantic Dinners"
-        loading="lazy"
-        width={400}
-        height={300}
-        srcSet={`${romanticDinnerImgJpg} 400w, ${romanticDinnerImgJpg} 800w`}
-        sizes="(max-width: 600px) 100vw, 400px" />
-          </picture>
+                <picture>
+                  <source srcSet={romanticDinnerImgWebp} type="image/webp" />
+                  <img src={romanticDinnerImgJpg}
+                    alt="Romantic Dinners"
+                    loading="lazy"
+                    width={400}
+                    height={300}
+                    srcSet={`${romanticDinnerImgJpg} 400w, ${romanticDinnerImgJpg} 800w`}
+                    sizes="(max-width: 600px) 100vw, 400px" />
+                </picture>
               </div>
               <div className="service-preview-content">
                 <div className="service-preview-text-content">
@@ -198,19 +197,18 @@ const Home = () => {
               </div>
             </div>
 
-            <div className="service-preview-card">
+            <div className="service-preview-card" onClick={() => navigate('/services/wedding-proposals')} style={{ cursor: 'pointer' }}>
               <div className="service-preview-image">
-                  {/* ...existing code... */}
-          <picture>
-            <source srcSet={weddingProposalImgWebp} type="image/webp" />
-            <img src={weddingProposalImgJpg}
-        alt="Wedding Proposals"
-        loading="lazy"
-        width={400}
-        height={300}
-        srcSet={`${weddingProposalImgJpg} 400w, ${weddingProposalImgJpg} 800w`}
-        sizes="(max-width: 600px) 100vw, 400px" />
-          </picture>
+                <picture>
+                  <source srcSet={weddingProposalImgWebp} type="image/webp" />
+                  <img src={weddingProposalImgJpg}
+                    alt="Wedding Proposals"
+                    loading="lazy"
+                    width={400}
+                    height={300}
+                    srcSet={`${weddingProposalImgJpg} 400w, ${weddingProposalImgJpg} 800w`}
+                    sizes="(max-width: 600px) 100vw, 400px" />
+                </picture>
               </div>
               <div className="service-preview-content">
                 <div className="service-preview-text-content">
@@ -223,19 +221,18 @@ const Home = () => {
               </div>
             </div>
 
-            <div className="service-preview-card">
+            <div className="service-preview-card" onClick={() => navigate('/services/yacht-dinner')} style={{ cursor: 'pointer' }}>
               <div className="service-preview-image">
-                  {/* ...existing code... */}
-          <picture>
-            <source srcSet={yachtDinnerImgWebp} type="image/webp" />
-            <img src={yachtDinnerImgJpg}
-        alt="Yacht Dinners"
-        loading="lazy"
-        width={400}
-        height={300}
-        srcSet={`${yachtDinnerImgJpg} 400w, ${yachtDinnerImgJpg} 800w`}
-        sizes="(max-width: 600px) 100vw, 400px" />
-          </picture>
+                <picture>
+                  <source srcSet={yachtDinnerImgWebp} type="image/webp" />
+                  <img src={yachtDinnerImgJpg}
+                    alt="Yacht Dinners"
+                    loading="lazy"
+                    width={400}
+                    height={300}
+                    srcSet={`${yachtDinnerImgJpg} 400w, ${yachtDinnerImgJpg} 800w`}
+                    sizes="(max-width: 600px) 100vw, 400px" />
+                </picture>
               </div>
               <div className="service-preview-content">
                 <div className="service-preview-text-content">
