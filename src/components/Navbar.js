@@ -15,7 +15,7 @@ const Navbar = () => {
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY;
-      const heroHeight = window.innerHeight; // Height of hero section
+      const heroHeight = window.innerHeight;
       
       if (scrollTop > heroHeight - 100) {
         setIsScrolled(true);
@@ -23,13 +23,11 @@ const Navbar = () => {
         setIsScrolled(false);
       }
 
-      // Scroll spy functionality - only on home page
       if (isHomePage) {
         const scrollTop = window.scrollY;
         const windowHeight = window.innerHeight;
         const documentHeight = document.documentElement.scrollHeight;
         
-        // Get all sections
         const aboutElement = document.querySelector('#about');
         const portfolioElement = document.querySelector('#portfolio');
         const servicesElement = document.querySelector('#services');
@@ -38,7 +36,6 @@ const Navbar = () => {
 
         let currentSection = 'home';
 
-        // Check each section based on scroll position (from bottom to top for priority)
         if (footerElement && scrollTop + windowHeight >= documentHeight - 150) {
           currentSection = 'contact';
         } else if (reviewsElement && scrollTop >= reviewsElement.offsetTop - 300) {
@@ -57,12 +54,11 @@ const Navbar = () => {
 
     if (isHomePage) {
       window.addEventListener('scroll', handleScroll);
-      handleScroll(); // Call once to set initial state
+      handleScroll();
     } else {
-      // For non-home pages, remove any scroll listener and keep scrolled state true
       window.removeEventListener('scroll', handleScroll);
-      setIsScrolled(true); // Keep scrolled true so CSS can work properly with non-home-page class
-      setActiveSection(''); // No active section on other pages
+      setIsScrolled(true);
+      setActiveSection('');
     }
 
     return () => window.removeEventListener('scroll', handleScroll);
@@ -82,7 +78,7 @@ const Navbar = () => {
       <div className="offers-banner">
         <div className="banner-content">
           {adminData.topBannerTexts && adminData.topBannerTexts
-            .filter(text => text.trim()) // Only show non-empty messages
+            .filter(text => text.trim())
             .map((text, index, filteredArray) => (
               <span key={index} className="banner-message-group">
                 <span className="offer-text">{text}</span>
@@ -98,93 +94,92 @@ const Navbar = () => {
             ))}
         </div>
       </div>
+
       <nav 
         className={`navbar ${isScrolled ? 'scrolled' : ''} ${!isHomePage ? 'non-home-page' : ''}`}
         data-debug={`isHomePage: ${isHomePage}, isScrolled: ${isScrolled}, path: ${location.pathname}`}
       >
-      <div className="navbar-container">
-        {/* Logo Section */}
-        <div className="navbar-logo">
-          <Link to="/" className="logo-link" onClick={closeMenu}>
-            <img src={logo} alt="Romance Retreat" className="logo-image" loading="lazy" width={120} height={40} />
-          </Link>
-        </div>
+        <div className="navbar-container">
 
-        {/* Navigation Links */}
-        <ul className={`navbar-menu ${isMenuOpen ? 'active' : ''}`}>
-          <li className="navbar-item">
-            <Link 
-              to="/" 
-              className={`navbar-link ${isHomePage && activeSection === 'home' ? 'active' : ''}`}
-              onClick={closeMenu}
-            >
-              Home
+          {/* Logo Section */}
+          <div className="navbar-logo">
+            <Link to="/" className="logo-link" onClick={closeMenu}>
+              <img src={logo} alt="Romance Retreat" className="logo-image" loading="lazy" width={120} height={40} />
             </Link>
-          </li>
-          <li className="navbar-item">
-            <Link 
-              to="/about" 
-              className={`navbar-link ${isHomePage && activeSection === 'about' ? 'active' : ''}`}
-              onClick={closeMenu}
-            >
-              About
-            </Link>
-          </li>
-          <li className="navbar-item">
-            <Link 
-              to="/portfolio" 
-              className={`navbar-link ${isHomePage && activeSection === 'portfolio' ? 'active' : ''}`}
-              onClick={closeMenu}
-            >
-              Portfolio
-            </Link>
-          </li>
-          <li className="navbar-item">
-            <Link 
-              to="/services" 
-              className={`navbar-link ${isHomePage && activeSection === 'services' ? 'active' : ''}`}
-              onClick={closeMenu}
-            >
-              Services
-            </Link>
-          </li>
-          <li className="navbar-item">
-            <Link 
-              to="/reviews" 
-              className={`navbar-link ${isHomePage && activeSection === 'reviews' ? 'active' : ''}`}
-              onClick={closeMenu}
-            >
-              Reviews
-            </Link>
-          </li>
-          <li className="navbar-item">
-            <Link 
-              to="/contact" 
-              className={`navbar-link ${isHomePage && activeSection === 'contact' ? 'active' : ''}`}
-              onClick={closeMenu}
-            >
-              Contact Us
-            </Link>
-          </li>
-          <li className="navbar-item">
-            <Link 
-              to="/booking" 
-              className="navbar-book-btn"
-              onClick={closeMenu}
-            >
-              💕 Book Now
-            </Link>
-          </li>
-        </ul>
+          </div>
 
-        {/* Mobile Menu Toggle */}
-        <div className={`navbar-toggle ${isMenuOpen ? 'active' : ''}`} onClick={toggleMenu}>
-          <span className="bar"></span>
-          <span className="bar"></span>
-          <span className="bar"></span>
+          {/* ✅ FIXED: Added missing UL */}
+          <ul className="navbar-menu">
+            <li className="navbar-item">
+              <Link 
+                to="/about" 
+                className={`navbar-link ${isHomePage && activeSection === 'about' ? 'active' : ''}`}
+                onClick={closeMenu}
+              >
+                About
+              </Link>
+            </li>
+
+            <li className="navbar-item">
+              <Link 
+                to="/portfolio" 
+                className={`navbar-link ${isHomePage && activeSection === 'portfolio' ? 'active' : ''}`}
+                onClick={closeMenu}
+              >
+                Portfolio
+              </Link>
+            </li>
+
+            <li className="navbar-item">
+              <Link 
+                to="/services" 
+                className={`navbar-link ${isHomePage && activeSection === 'services' ? 'active' : ''}`}
+                onClick={closeMenu}
+              >
+                Services
+              </Link>
+            </li>
+
+            <li className="navbar-item">
+              <Link 
+                to="/reviews" 
+                className={`navbar-link ${isHomePage && activeSection === 'reviews' ? 'active' : ''}`}
+                onClick={closeMenu}
+              >
+                Reviews
+              </Link>
+            </li>
+
+            <li className="navbar-item">
+              <Link 
+                to="/contact" 
+                className={`navbar-link ${isHomePage && activeSection === 'contact' ? 'active' : ''}`}
+                onClick={closeMenu}
+              >
+                Contact Us
+              </Link>
+            </li>
+
+            <li className="navbar-item">
+              <Link 
+                to="/booking" 
+                className="navbar-book-btn"
+                onClick={closeMenu}
+              >
+                💕 Book Now
+              </Link>
+            </li>
+          </ul>
+
+          {/* Mobile Menu Toggle */}
+          <div className={`navbar-toggle ${isMenuOpen ? 'active' : ''}`} onClick={toggleMenu}>
+            <span className="bar"></span>
+            <span className="bar"></span>
+            <span className="bar"></span>
+          </div>
+
         </div>
-      </div>
-    </nav>
+      </nav>
     </>
   );
 };

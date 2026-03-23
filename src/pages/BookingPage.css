@@ -1,3 +1,80 @@
+.booking-left-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  min-height: 100%;
+}
+
+/* Two-column main grid for hero and form */
+.booking-main-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 0;
+  max-width: 1100px;
+  margin: 60px auto 0 auto;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  overflow: hidden;
+}
+
+.booking-hero {
+  background: url('../components/images/Home.jpg') center/cover;
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  position: relative;
+}
+
+.booking-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.4) 100%);
+  z-index: 1;
+}
+
+.booking-hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 400px;
+  padding: 2rem;
+}
+
+.booking-form-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  min-height: 500px;
+  padding: 2rem 1.5rem;
+}
+
+@media (max-width: 900px) {
+  .booking-main-grid {
+    grid-template-columns: 1fr;
+    max-width: 98vw;
+    margin: 30px auto 0 auto;
+  }
+  .booking-left-column {
+    width: 100%;
+  }
+  .booking-hero, .booking-form-section {
+    min-height: 320px;
+    padding: 1.5rem 0.5rem;
+  }
+  .booking-hero-content {
+    max-width: 100%;
+    padding: 1rem;
+  }
+}
 /* Booking Page Styles */
 .booking-page {
   min-height: 100vh;
