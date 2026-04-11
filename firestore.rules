@@ -2,17 +2,92 @@ rules_version='2'
 
 service cloud.firestore {
   match /databases/{database}/documents {
+    function isAdmin() {
+      return request.auth != null && request.auth.token.admin == true;
+    }
+
+    function isValidPrice(value) {
+      return value is string && value.matches('^[0-9,]{1,15}$');
+    }
+
+    function validPrices(data) {
+      return data.keys().hasOnly([
+        'romanticDinners',
+        'weddingProposals',
+        'valentinesDinners',
+        'birthdayCelebrations',
+        'anniversaryCelebrations',
+        'dinnerDate',
+        'yachtDinner',
+        'coupleMassage',
+        'customizedMoments'
+      ])
+      && data.keys().hasAll([
+        'romanticDinners',
+        'weddingProposals',
+        'valentinesDinners',
+        'birthdayCelebrations',
+        'anniversaryCelebrations',
+        'dinnerDate',
+        'yachtDinner',
+        'coupleMassage',
+        'customizedMoments'
+      ])
+      && isValidPrice(data.romanticDinners)
+      && isValidPrice(data.weddingProposals)
+      && isValidPrice(data.valentinesDinners)
+      && isValidPrice(data.birthdayCelebrations)
+      && isValidPrice(data.anniversaryCelebrations)
+      && isValidPrice(data.dinnerDate)
+      && isValidPrice(data.yachtDinner)
+      && isValidPrice(data.coupleMassage)
+      && isValidPrice(data.customizedMoments);
+    }
+
+    function validSocialMedia(data) {
+      return data is map
+      && data.keys().hasOnly(['facebook', 'instagram', 'twitter'])
+      && (!('facebook' in data) || (data.facebook is string && data.facebook.size() <= 200))
+      && (!('instagram' in data) || (data.instagram is string && data.instagram.size() <= 200))
+      && (!('twitter' in data) || (data.twitter is string && data.twitter.size() <= 200));
+    }
+
+    function validContactInfo(data) {
+      return data.keys().hasOnly(['phone', 'email', 'address', 'whatsapp', 'socialMedia'])
+      && (!('phone' in data) || (data.phone is string && data.phone.size() <= 40))
+      && (!('email' in data) || (data.email is string && data.email.size() <= 120))
+      && (!('address' in data) || (data.address is string && data.address.size() <= 400))
+      && (!('whatsapp' in data) || (data.whatsapp is string && data.whatsapp.size() <= 40))
+      && (!('socialMedia' in data) || validSocialMedia(data.socialMedia));
+    }
+
+    function validBanners(data) {
+      return data.keys().hasOnly(['topBannerTexts'])
+      && data.topBannerTexts is list
+      && data.topBannerTexts.size() > 0
+      && data.topBannerTexts.size() <= 10;
+    }
+
+    function validPortfolioImages(data) {
+      return data.keys().hasOnly(['portfolioImages'])
+      && data.portfolioImages is list
+      && data.portfolioImages.size() <= 200;
+    }
+
+    function validConfigWrite(docId, data) {
+      return (docId == 'prices' && validPrices(data))
+      || (docId == 'contactInfo' && validContactInfo(data))
+      || (docId == 'banners' && validBanners(data))
+      || (docId == 'portfolioImages' && validPortfolioImages(data));
+    }
+
+    match /config/{docId} {
+      allow read: if true;
+      allow write: if isAdmin() && request.resource != null && validConfigWrite(docId, request.resource.data);
+    }
+
     match /{document=**} {
-      // This rule allows anyone with your database reference to view, edit,
-      // and delete all data in your database. It is useful for getting
-      // started, but it is configured to expire after 30 days because it
-      // leaves your app open to attackers. At that time, all client
-      // requests to your database will be denied.
-      //
-      // Make sure to write security rules for your app before that time, or
-      // else all client requests to your database will be denied until you
-      // update your rules.
-      allow read, write: if true;
+      allow read, write: if false;
     }
   }
 }

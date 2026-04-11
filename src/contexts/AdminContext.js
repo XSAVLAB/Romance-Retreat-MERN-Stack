@@ -1,8 +1,28 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
-import { db } from '../firebase';
+import { auth, db } from '../firebase';
 import { doc, setDoc, onSnapshot } from 'firebase/firestore';
+import { onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 
 const AdminContext = createContext();
+
+const getAdminLoginErrorMessage = (error) => {
+  switch (error?.code) {
+    case 'auth/invalid-credential':
+    case 'auth/invalid-login-credentials':
+    case 'auth/wrong-password':
+      return 'Incorrect admin password for the configured Firebase account.';
+    case 'auth/user-not-found':
+      return 'The configured admin email does not exist in Firebase Authentication.';
+    case 'auth/invalid-email':
+      return 'The configured admin email is invalid.';
+    case 'auth/operation-not-allowed':
+      return 'Email/password sign-in is disabled in Firebase Authentication.';
+    case 'auth/too-many-requests':
+      return 'Too many failed login attempts. Try again later or reset the password.';
+    default:
+      return error?.message || 'Login failed';
+  }
+};
 
 export const useAdmin = () => {
   const context = useContext(AdminContext);
@@ -13,8 +33,10 @@ export const useAdmin = () => {
 };
 
 export const AdminProvider = ({ children }) => {
-  // console.log('AdminProvider initialized');
+  const configuredAdminEmail = (process.env.REACT_APP_ADMIN_EMAIL || '').trim();
+  const configuredAdminUsername = (process.env.REACT_APP_ADMIN_USERNAME || 'admin').trim();
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
+  const [isAuthReady, setIsAuthReady] = useState(false);
   const [adminData, setAdminData] = useState({
     bannerTexts: {
       heroTitle: 'Romance Retreat',
@@ -93,94 +115,74 @@ export const AdminProvider = ({ children }) => {
     return () => unsubscribe();
   }, []);
 
-  // Admin credentials from environment variables (secure approach)
-  const adminCredentials = {
-    username: process.env.REACT_APP_ADMIN_USERNAME || 'admin',
-    password: process.env.REACT_APP_ADMIN_PASSWORD || 'defaultpassword'
-  };
-
-  // Warn if environment variables are not set properly
-  if (!process.env.REACT_APP_ADMIN_PASSWORD || process.env.REACT_APP_ADMIN_PASSWORD === 'defaultpassword') {
-    console.warn('⚠️  Admin password not set in environment variables. Using default password is not secure for production!');
-  }
-
-  // Check for existing admin session on app load
+  // Auth state is source-of-truth; no localStorage session trust.
   useEffect(() => {
-    // Always load saved portfolio images for public display
-    const savedAdminData = localStorage.getItem('romanceRetreatAdminData');
-    if (savedAdminData) {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       try {
-        const parsedData = JSON.parse(savedAdminData);
-        setAdminData(prevData => ({
-          ...prevData,
-          ...parsedData,
-          contactInfo: {
-            ...prevData.contactInfo,
-            ...(parsedData.contactInfo || {}),
-            socialMedia: {
-              ...prevData.contactInfo.socialMedia,
-              ...(parsedData.contactInfo?.socialMedia || {})
-            }
-          }
-        }));
-      } catch (error) {
-        console.error('Error parsing saved admin data:', error);
-      }
-    }
-
-    // Robust session check
-    let isSessionValid = false;
-    const adminSession = localStorage.getItem('romanceRetreatAdminSession');
-    if (adminSession) {
-      try {
-        const sessionData = JSON.parse(adminSession);
-        const now = new Date().getTime();
-        // Session expires after 24 hours
-        if (sessionData.timestamp && (now - sessionData.timestamp < 24 * 60 * 60 * 1000)) {
-          isSessionValid = true;
-        } else {
-          localStorage.removeItem('romanceRetreatAdminSession');
+        if (!user) {
+          setIsAdminLoggedIn(false);
+          return;
         }
+
+        const tokenResult = await user.getIdTokenResult(true);
+        setIsAdminLoggedIn(tokenResult.claims.admin === true);
       } catch (error) {
-        console.error('Error parsing admin session:', error);
-        localStorage.removeItem('romanceRetreatAdminSession');
+        console.error('Admin auth state check failed:', error);
+        setIsAdminLoggedIn(false);
+      } finally {
+        setIsAuthReady(true);
       }
-    }
-    setIsAdminLoggedIn(isSessionValid);
-    console.log('AdminContext: isSessionValid =', isSessionValid);
+    });
+
+    return () => unsubscribe();
   }, []);
 
-  // Save admin data to localStorage whenever it changes
-  useEffect(() => {
-    if (isAdminLoggedIn) {
-      localStorage.setItem('romanceRetreatAdminData', JSON.stringify(adminData));
+  const resolveAdminEmailFromUserId = (userId) => {
+    const rawUserId = (userId || '').trim();
+    if (!rawUserId || !configuredAdminEmail || !configuredAdminUsername) {
+      return '';
     }
-  }, [adminData, isAdminLoggedIn]);
 
-  const loginAdmin = (username, password) => {
-    if (username === adminCredentials.username && password === adminCredentials.password) {
+    if (rawUserId.toLowerCase() !== configuredAdminUsername.toLowerCase()) {
+      return '';
+    }
+
+    return configuredAdminEmail;
+  };
+
+  const loginAdmin = async (userId, password) => {
+    try {
+      const loginEmail = resolveAdminEmailFromUserId(userId);
+      if (!loginEmail) {
+        return {
+          success: false,
+          message: 'Invalid admin user ID.'
+        };
+      }
+
+      const credentials = await signInWithEmailAndPassword(auth, loginEmail, password);
+      const tokenResult = await credentials.user.getIdTokenResult(true);
+
+      if (tokenResult.claims.admin !== true) {
+        await signOut(auth);
+        return { success: false, message: 'Access denied: admin claim is missing.' };
+      }
+
       setIsAdminLoggedIn(true);
-      const sessionData = {
-        timestamp: new Date().getTime(),
-        isLoggedIn: true
-      };
-      localStorage.setItem('romanceRetreatAdminSession', JSON.stringify(sessionData));
       return { success: true };
-    } else {
-      return { success: false, message: 'Invalid credentials' };
+    } catch (error) {
+      console.error('Admin login failed:', error?.code || error?.message || error);
+      return { success: false, message: getAdminLoginErrorMessage(error) };
     }
   };
 
-  const logoutAdmin = () => {
-  setIsAdminLoggedIn(false);
-  localStorage.removeItem('romanceRetreatAdminSession');
-  localStorage.removeItem('romanceRetreatAdminData');
-  console.log('AdminContext: logoutAdmin called, session/data removed');
-  window.location.href = '/'; // Force reload to home page and reset context
-    // Always ensure isAdminLoggedIn is false if no valid session
-    if (!localStorage.getItem('romanceRetreatAdminSession')) {
+  const logoutAdmin = async () => {
+    try {
+      await signOut(auth);
+    } catch (error) {
+      console.error('Admin logout failed:', error);
+    } finally {
       setIsAdminLoggedIn(false);
-      console.log('AdminContext: No valid session, isAdminLoggedIn set to false');
     }
   };
 
@@ -267,6 +269,7 @@ export const AdminProvider = ({ children }) => {
   };
 
   const value = {
+    isAuthReady,
     isAdminLoggedIn,
     adminData,
     loginAdmin,

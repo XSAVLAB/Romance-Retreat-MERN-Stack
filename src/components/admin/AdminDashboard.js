@@ -5,14 +5,14 @@ import { usePricing } from '../../contexts/PricingContext';
 import './AdminDashboard.css';
 
 const AdminDashboard = () => {
-  const { isAdminLoggedIn, logoutAdmin, adminData, updateTopBanner, updateContactInfo, addPortfolioImage, removePortfolioImage } = useAdmin();
+  const { isAuthReady, isAdminLoggedIn, logoutAdmin, adminData, updateTopBanner, updateContactInfo, addPortfolioImage, removePortfolioImage } = useAdmin();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!isAdminLoggedIn) {
+    if (isAuthReady && !isAdminLoggedIn) {
       navigate('/admin-login'); // Redirect to login if not logged in
     }
-  }, [isAdminLoggedIn, navigate]);
+  }, [isAuthReady, isAdminLoggedIn, navigate]);
   const { prices, updateAllPrices } = usePricing();
   const [activeTab, setActiveTab] = useState('pricing');
   const [topBannerTexts, setTopBannerTexts] = useState(adminData.topBannerTexts || ['', '', '', '']);

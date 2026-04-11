@@ -6,11 +6,8 @@ Add these **Repository Secrets**:
 
 ## Environment Variables:
 ```
-Secret Name: REACT_APP_ADMIN_USERNAME
-Secret Value: admin
-
-Secret Name: REACT_APP_ADMIN_PASSWORD  
-Secret Value: romance_retreat_2025
+Secret Name: REACT_APP_ADMIN_EMAIL
+Secret Value: admin@example.com
 
 Secret Name: REACT_APP_WHATSAPP_NUMBER
 Secret Value: 917840930140
@@ -24,6 +21,8 @@ Secret Value: https://instagram.com/romanceretreat
 Secret Name: REACT_APP_TWITTER_URL
 Secret Value: https://x.com/romanceretreat
 ```
+
+Admin password must be managed in Firebase Authentication, not in GitHub secrets.
 
 ## ✅ Already Added by Firebase:
 - `FIREBASE_SERVICE_ACCOUNT_ROMANCE_RETREAT_XSAVLAB` ✓

@@ -16,11 +16,17 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
+      - name: Install frontend dependencies
+        run: npm ci
+      - name: Install functions dependencies
+        run: npm ci --prefix functions
+      - name: Security gate (frontend prod deps)
+        run: npm audit --omit=dev --audit-level=moderate
+      - name: Security gate (functions prod deps)
+        run: npm audit --omit=dev --audit-level=moderate --prefix functions
       - name: Build
-        run: npm ci && npm run build
+        run: npm run build
         env:
-          REACT_APP_ADMIN_USERNAME: ${{ secrets.REACT_APP_ADMIN_USERNAME }}
-          REACT_APP_ADMIN_PASSWORD: ${{ secrets.REACT_APP_ADMIN_PASSWORD }}
           REACT_APP_WHATSAPP_NUMBER: ${{ secrets.REACT_APP_WHATSAPP_NUMBER }}
           REACT_APP_FACEBOOK_URL: ${{ secrets.REACT_APP_FACEBOOK_URL }}
           REACT_APP_INSTAGRAM_URL: ${{ secrets.REACT_APP_INSTAGRAM_URL }}

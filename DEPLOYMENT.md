@@ -24,13 +24,22 @@ Add these **Repository Secrets**:
 
 #### Environment Variables:
 ```
-REACT_APP_ADMIN_USERNAME=admin
-REACT_APP_ADMIN_PASSWORD=romance_retreat_2025
+REACT_APP_ADMIN_EMAIL=admin@example.com
 REACT_APP_WHATSAPP_NUMBER=917840930140
 REACT_APP_FACEBOOK_URL=https://facebook.com/romanceretreat
 REACT_APP_INSTAGRAM_URL=https://instagram.com/romanceretreat
 REACT_APP_TWITTER_URL=https://x.com/romanceretreat
 ```
+
+#### Firebase Admin Claim Setup (Required)
+Use Firebase Admin SDK once to assign admin claim:
+
+```js
+// Run in a secure server environment only
+await admin.auth().setCustomUserClaims(uid, { admin: true });
+```
+
+After setting claims, force token refresh by signing out and signing in again.
 
 #### Firebase Service Account:
 ```

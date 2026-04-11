@@ -4,7 +4,7 @@ import { useAdmin } from '../../contexts/AdminContext';
 import './AdminLogin.css';
 
 const AdminLogin = () => {
-  const [credentials, setCredentials] = useState({ username: '', password: '' });
+  const [credentials, setCredentials] = useState({ identifier: '', password: '' });
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { loginAdmin } = useAdmin();
@@ -21,23 +21,19 @@ const AdminLogin = () => {
     setIsLoading(true);
     setError('');
 
-    // Basic validation
-    if (!credentials.username || !credentials.password) {
-      setError('Please enter both username and password');
+    if (!credentials.identifier || !credentials.password) {
+      setError('Please enter user ID and password');
       setIsLoading(false);
       return;
     }
 
-    // Simulate a small delay for better UX
-    setTimeout(() => {
-      const result = loginAdmin(credentials.username, credentials.password);
-      if (!result.success) {
-        setError(result.message || 'Login failed');
-      } else {
-        navigate('/admin'); // Redirect to dashboard on success
-      }
-      setIsLoading(false);
-    }, 1000);
+    const result = await loginAdmin(credentials.identifier, credentials.password);
+    if (!result.success) {
+      setError(result.message || 'Login failed');
+    } else {
+      navigate('/admin');
+    }
+    setIsLoading(false);
   };
 
   return (
@@ -56,15 +52,16 @@ const AdminLogin = () => {
           )}
 
           <div className="admin-form-group">
-            <label htmlFor="username">Username</label>
+            <label htmlFor="identifier">Admin User ID</label>
             <input
               type="text"
-              id="username"
-              name="username"
-              value={credentials.username}
+              id="identifier"
+              name="identifier"
+              value={credentials.identifier}
               onChange={handleInputChange}
-              placeholder="Enter admin username"
+              placeholder="Enter admin user ID"
               disabled={isLoading}
+              autoComplete="username"
             />
           </div>
 
@@ -78,6 +75,7 @@ const AdminLogin = () => {
               onChange={handleInputChange}
               placeholder="Enter admin password"
               disabled={isLoading}
+              autoComplete="current-password"
             />
           </div>
 
