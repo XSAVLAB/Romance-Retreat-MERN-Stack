@@ -67,6 +67,7 @@
 
 .admin-form-group input {
   width: 100%;
+  box-sizing: border-box;
   padding: 0.75rem;
   border: 2px solid #e1e5e9;
   border-radius: 10px;
@@ -83,6 +84,36 @@
 }
 
 .admin-form-group input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.admin-password-input-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.admin-password-input-wrapper input {
+  padding-right: 2.75rem;
+}
+
+.admin-password-toggle {
+  position: absolute;
+  top: 50%;
+  right: 0.75rem;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  color: #667eea;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem;
+  font-size: 1rem;
+}
+
+.admin-password-toggle:disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }

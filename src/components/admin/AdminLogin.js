@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useAdmin } from '../../contexts/AdminContext';
 import './AdminLogin.css';
 
 const AdminLogin = () => {
   const [credentials, setCredentials] = useState({ identifier: '', password: '' });
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { loginAdmin } = useAdmin();
@@ -22,7 +24,7 @@ const AdminLogin = () => {
     setError('');
 
     if (!credentials.identifier || !credentials.password) {
-      setError('Please enter user ID and password');
+      setError('Please enter user ID/email and password');
       setIsLoading(false);
       return;
     }
@@ -52,14 +54,14 @@ const AdminLogin = () => {
           )}
 
           <div className="admin-form-group">
-            <label htmlFor="identifier">Admin User ID</label>
+            <label htmlFor="identifier">Admin ID / Email</label>
             <input
               type="text"
               id="identifier"
               name="identifier"
               value={credentials.identifier}
               onChange={handleInputChange}
-              placeholder="Enter admin user ID"
+              placeholder="Enter admin ID or email"
               disabled={isLoading}
               autoComplete="username"
             />
@@ -67,16 +69,28 @@ const AdminLogin = () => {
 
           <div className="admin-form-group">
             <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={credentials.password}
-              onChange={handleInputChange}
-              placeholder="Enter admin password"
-              disabled={isLoading}
-              autoComplete="current-password"
-            />
+            <div className="admin-password-input-wrapper">
+              <input
+                type={showPassword ? 'text' : 'password'}
+                id="password"
+                name="password"
+                value={credentials.password}
+                onChange={handleInputChange}
+                placeholder="Enter admin password"
+                disabled={isLoading}
+                autoComplete="current-password"
+              />
+              <button
+                type="button"
+                className="admin-password-toggle"
+                onClick={() => setShowPassword(prev => !prev)}
+                aria-label={showPassword ? 'Hide password' : 'Show password'}
+                title={showPassword ? 'Hide password' : 'Show password'}
+                disabled={isLoading}
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
+            </div>
           </div>
 
           <button 

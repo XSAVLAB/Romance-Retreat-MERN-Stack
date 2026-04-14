@@ -35,6 +35,8 @@ export const useAdmin = () => {
 export const AdminProvider = ({ children }) => {
   const configuredAdminEmail = (process.env.REACT_APP_ADMIN_EMAIL || '').trim();
   const configuredAdminUsername = (process.env.REACT_APP_ADMIN_USERNAME || 'admin').trim();
+  const configuredAdminEmail2 = (process.env.REACT_APP_ADMIN_EMAIL_2 || '').trim();
+  const configuredAdminUsername2 = (process.env.REACT_APP_ADMIN_USERNAME_2 || '').trim();
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
   const [isAuthReady, setIsAuthReady] = useState(false);
   const [adminData, setAdminData] = useState({
@@ -137,26 +139,43 @@ export const AdminProvider = ({ children }) => {
     return () => unsubscribe();
   }, []);
 
-  const resolveAdminEmailFromUserId = (userId) => {
-    const rawUserId = (userId || '').trim();
-    if (!rawUserId || !configuredAdminEmail || !configuredAdminUsername) {
+  const resolveAdminEmailFromIdentifier = (identifier) => {
+    const rawIdentifier = (identifier || '').trim();
+    if (!rawIdentifier) {
       return '';
     }
 
-    if (rawUserId.toLowerCase() !== configuredAdminUsername.toLowerCase()) {
+    const adminMappings = [
+      { username: configuredAdminUsername, email: configuredAdminEmail },
+      { username: configuredAdminUsername2, email: configuredAdminEmail2 }
+    ];
+
+    const emailMatch = adminMappings.find(({ email }) => {
+      return email && rawIdentifier.toLowerCase() === email.toLowerCase();
+    });
+
+    if (emailMatch) {
+      return emailMatch.email;
+    }
+
+    const matchedAdmin = adminMappings.find(({ username, email }) => {
+      return username && email && rawIdentifier.toLowerCase() === username.toLowerCase();
+    });
+
+    if (!matchedAdmin) {
       return '';
     }
 
-    return configuredAdminEmail;
+    return matchedAdmin.email;
   };
 
-  const loginAdmin = async (userId, password) => {
+  const loginAdmin = async (identifier, password) => {
     try {
-      const loginEmail = resolveAdminEmailFromUserId(userId);
+      const loginEmail = resolveAdminEmailFromIdentifier(identifier);
       if (!loginEmail) {
         return {
           success: false,
-          message: 'Invalid admin user ID.'
+          message: 'Invalid admin user ID or email.'
         };
       }
 
