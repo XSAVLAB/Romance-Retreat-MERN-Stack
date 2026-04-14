@@ -27,6 +27,10 @@ jobs:
       - name: Build
         run: npm run build
         env:
+          REACT_APP_ADMIN_EMAIL: ${{ secrets.REACT_APP_ADMIN_EMAIL }}
+          REACT_APP_ADMIN_USERNAME: ${{ secrets.REACT_APP_ADMIN_USERNAME }}
+          REACT_APP_ADMIN_EMAIL_2: ${{ secrets.REACT_APP_ADMIN_EMAIL_2 }}
+          REACT_APP_ADMIN_USERNAME_2: ${{ secrets.REACT_APP_ADMIN_USERNAME_2 }}
           REACT_APP_WHATSAPP_NUMBER: ${{ secrets.REACT_APP_WHATSAPP_NUMBER }}
           REACT_APP_FACEBOOK_URL: ${{ secrets.REACT_APP_FACEBOOK_URL }}
           REACT_APP_INSTAGRAM_URL: ${{ secrets.REACT_APP_INSTAGRAM_URL }}
